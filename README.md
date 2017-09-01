@@ -71,6 +71,7 @@ following settings exist for the integrated GitHub client:
 * `commitTime`: TODO
 * `repsoitoryUrl`: URL of the repsoitory you want to access
 * `privateRepository`: set `true` if this is a private repository
+* `branches`: a list of branches or tags that will be imported. This is useful when you have multiple API versions that need to be documented in parallel.
 
 #### Example Config
 ```yaml
@@ -82,7 +83,20 @@ apiToken: cafea1b0c6faee11d6dcbabef838f2abcdec6feac
 commitTime: 1
 repositoryUrl: https://github.com/iotester/importerTest
 privateRepository: false
+
+branches:
+ - master
+ - develop
+
 ```
+
+### Local Checkout
+
+The local checkout is ideal when you are working with a CI system that already has your Git credentials. You don't need to generate an API token, you just call `git export` or `git clone` in your build script before calling `importer.jar`.
+
+Following settings are available for local checkout:
+
+TODO
 
 ## Contributing
 
