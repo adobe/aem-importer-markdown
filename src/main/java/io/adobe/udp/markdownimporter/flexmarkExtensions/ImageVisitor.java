@@ -1,0 +1,46 @@
+package io.adobe.udp.markdownimporter.flexmarkExtensions;
+
+import io.adobe.udp.markdownimporter.utils.Constants;
+
+import java.util.List;
+
+import com.vladsch.flexmark.ast.Image;
+import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.ast.NodeVisitor;
+import com.vladsch.flexmark.ast.VisitHandler;
+import com.vladsch.flexmark.ast.Visitor;
+
+public class ImageVisitor {
+    
+	List<String> urls ;
+
+   
+    NodeVisitor visitor = new NodeVisitor(
+            new VisitHandler<Image>(Image.class, new Visitor<Image>() {
+                @Override
+                public void visit(Image image) {
+                    ImageVisitor.this.visit(image);
+                }
+            })
+    );
+    
+    public ImageVisitor(List<String> urls) {
+    	this.urls = urls;
+    }
+
+    public void visit(Image image) {
+    	if(!image.getUrl().startsWith(Constants.HTTP_PREFIX) && !image.getUrl().startsWith(Constants.HTTPS_PREFIX)) {
+    		this.urls.add(image.getUrl().toString());
+    	}
+        visitor.visitChildren(image);
+    }
+    
+    public List<String> getUrls() {
+    	return this.urls;
+    }
+    
+    public void collectImages(Node document) {
+    	this.visitor.visitChildren(document);
+    }
+
+}

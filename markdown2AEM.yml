@@ -1,0 +1,31 @@
+rootPath : /content/udp/en/apis/my
+rootTitle : generated docs 
+rootTemplate : /apps/udp/templates/githubdocumentation
+rootPageResourceType : udp/components/structure/githubdocumentation
+pageTemplate : /apps/udp/templates/importedgithubpage
+pageResourceType : udp/components/structure/githubpage
+packageName : importerDemo
+group : io.adobe
+version : 1.0 
+pages:
+ - pages* 
+
+githubUrl : github.com
+githubContentUrl : https://raw.githubusercontent.com
+githubApiUrl : api.github.com
+apiToken : a91a1b0c6faee11d6dc284af838f2369cec64214
+commitTime : 1
+repositoryUrl : https://github.com/iotester/importerTest
+privateRepository : false
+
+branches:
+ - master
+ - develop
+
+componentMappings:
+ com.vladsch.flexmark.ast.Node : io.adobe.udp.markdownimporter.mappings.MarkdownParagraphMapper
+ com.vladsch.flexmark.ast.IndentedCodeBlock : io.adobe.udp.markdownimporter.mappings.IndentedCodeBlockMapper
+ com.vladsch.flexmark.ast.FencedCodeBlock : io.adobe.udp.markdownimporter.mappings.MarkdownFencedCodeBlockMapper
+ com.vladsch.flexmark.ext.tables.TableBlock : io.adobe.udp.markdownimporter.mappings.MarkdownTableMapper
+ com.vladsch.flexmark.ast.Heading : io.adobe.udp.markdownimporter.mappings.MarkdownHeadlineMapper
+ com.vladsch.flexmark.ext.front.matter.YamlFrontMatterBlock : io.adobe.udp.markdownimporter.mappings.FrontMatterMapper
