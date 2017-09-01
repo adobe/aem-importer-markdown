@@ -54,6 +54,48 @@ This will create a file `importerDemo.zip`, which you can install in your AEM in
 
 ## Configuration
 
+All configuration happens in a `.yaml` file. This configuration file specifies where to find the Markdown files, where the content should be put in AEM and what kind of content should be created.
+
+There are two configuration modes:
+1. Integrated GitHub Client: the importer will pull all files from GitHub (Enterprise)
+2. Local Checkout: the importer assumes you have all files in a local checkout
+
+### Integrated GitHub Client
+
+following settings exist for the integrated GitHub client:
+
+* `githubUrl`: hostname of your GitHub instance
+* `githubContentUrl`: API endpoint for retrieving binaries from GitHub
+* `githubApiUrl`: hostname of the GitHub API server
+* `apiToken`: the API token to access GitHub. Get it from **GitHub** -> **Settings** -> **Personal access tokens** -> **Generate new token**
+* `commitTime`: TODO
+* `repsoitoryUrl`: URL of the repsoitory you want to access
+* `privateRepository`: set `true` if this is a private repository
+* `branches`: a list of branches or tags that will be imported. This is useful when you have multiple API versions that need to be documented in parallel.
+
+#### Example Config
+```yaml
+githubUrl: github.com
+githubContentUrl: https://raw.githubusercontent.com
+githubApiUrl: api.github.com
+# don't put your API token on GitHub. Use read-only tokens.
+apiToken: cafea1b0c6faee11d6dcbabef838f2abcdec6feac
+commitTime: 1
+repositoryUrl: https://github.com/iotester/importerTest
+privateRepository: false
+
+branches:
+ - master
+ - develop
+
+```
+
+### Local Checkout
+
+The local checkout is ideal when you are working with a CI system that already has your Git credentials. You don't need to generate an API token, you just call `git export` or `git clone` in your build script before calling `importer.jar`.
+
+Following settings are available for local checkout:
+
 TODO
 
 ## Contributing
