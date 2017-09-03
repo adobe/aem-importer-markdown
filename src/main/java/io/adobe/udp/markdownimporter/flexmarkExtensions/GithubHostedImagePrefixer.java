@@ -45,10 +45,6 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 		}
 		String internalPath = path.replaceFirst(githubData.getBlobPrefix(), "");
 		internalPath = IONodeUtils.removeFirstSlash(branchRootInfo.getInternalPath(internalPath));
-		String crxFilePath = IONodeUtils.replaceDotsInPath(parentPath + "/" + internalPath);
-//		if(resourceResolver.getResource(crxFilePath) != null) {
-//			return crxFilePath;
-//		} 
 		return fileGithubUrl(path);
 		
 	}

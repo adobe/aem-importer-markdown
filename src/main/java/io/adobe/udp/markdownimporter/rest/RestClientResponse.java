@@ -1,8 +1,5 @@
 package io.adobe.udp.markdownimporter.rest;
 
-/**
- * Created by nelson on 2016-06-15.
- */
 public class RestClientResponse {
     private int status;
     private String json;

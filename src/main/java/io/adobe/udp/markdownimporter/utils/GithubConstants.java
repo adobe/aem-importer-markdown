@@ -20,11 +20,6 @@ public class GithubConstants {
 	public static final String MARKDOWN_NODE = "markdownrenderer";
 	public static final String OBJECT = "object";
 	public static final String SHA = "sha";
-	public static final String GITHUB_TEMPLATE = "/apps/udp/templates/githubpage";
-	public static final String GITHUB_PAGE_RESOURE_TYPE = "udp/components/structure/githubpage";
-	public static final String IMPORTED_GITHUB_TEMPLATE = "/apps/udp/templates/importedgithubpage";
-	public static final String IMPORTED_GITHUB_PAGE_RESOURE_TYPE = "udp/components/structure/importedgithubpage";
-	public static final String GITHUB_DOC_ROOT_RESOURCE_TYPE = "udp/components/structure/githubdocumentation";
 	public static final String PAGE_IMPORTED = "imported";
 	public static final String NAME = "name";
 	public static final String COMMIT = "commit";
