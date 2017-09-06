@@ -37,12 +37,6 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 	}
 
 	private String rewritePathToMarkdown(String path) {
-		String parentPath = null;
-		if(isAbsolute(path)) {
-			parentPath = branchRootInfo.getBranchPageName();
-		} else {
-			parentPath = pagePath;
-		}
 		String internalPath = path.replaceFirst(githubData.getBlobPrefix(), "");
 		internalPath = IONodeUtils.removeFirstSlash(branchRootInfo.getInternalPath(internalPath));
 		return fileGithubUrl(path);

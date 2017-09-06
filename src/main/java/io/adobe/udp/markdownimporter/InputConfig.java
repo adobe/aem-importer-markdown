@@ -15,6 +15,7 @@ public class InputConfig {
 	private String repositoryUrl;
 	private String rootPath;
 	private List<String> branches;
+	private List<String> workingDirs;
 	private List<String> pages;
 	
 	private Map<String, String> componentMappings;
@@ -27,7 +28,7 @@ public class InputConfig {
 	private String packageName;
 	private String group;
 	private String version;
-	
+	private boolean localCheckout;
 	
 	public String getGithubUrl() {
 		return githubUrl;
@@ -148,6 +149,15 @@ public class InputConfig {
 	}
 	public void setDesignPath(String designPath) {
 		this.designPath = designPath;
+	}
+	public List<String> getWorkingDirs() {
+		return workingDirs;
+	}
+	public void setWorkingDirs(List<String> workingDirs) {
+		this.workingDirs = workingDirs;
+	}
+	public boolean isLocalCheckout() {
+		return this.workingDirs != null;
 	}
 
 }

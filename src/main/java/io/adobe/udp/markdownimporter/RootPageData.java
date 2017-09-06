@@ -28,7 +28,9 @@ public class RootPageData implements PageData {
 		result.put("isFolder", true);
 		result.put("isDocumentationRoot", "true");
 		githubData.put(GithubConstants.BRANCH, inputConfig.getBranches().toArray());
-		githubData.put("pages", inputConfig.getPages().toArray());
+		if(inputConfig.getPages() != null) {
+			githubData.put("pages", inputConfig.getPages().toArray());
+		}
 		githubData.put(GithubConstants.URL, inputConfig.getRepositoryUrl());
 		result.put("github", githubData);
 		return result;

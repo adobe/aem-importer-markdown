@@ -71,10 +71,11 @@ public class IONodeUtils {
 	public static void addPlaceHolderTemplate(String rootPath, String filePath, String githubFilePath, Set<String> files, Map<String, PageData> pages, FolderPageData pageData) {
 		String parentPath = getParentPath(filePath);
 		if(!rootPath.equals(filePath) && !rootPath.equals(parentPath)) {
-			if(!files.contains(getParentPath(githubFilePath) + GithubConstants.MARKDOWN_EXTENSION)) {
+			if(!files.contains(getParentPath(githubFilePath) + GithubConstants.MARKDOWN_EXTENSION) && !pages.containsKey(parentPath)) {
 				pageData.setTitle(extractName(parentPath));
 				pages.put(parentPath, pageData);
 			}
+			addPlaceHolderTemplate(rootPath, parentPath, getParentPath(githubFilePath), files, pages, pageData);
 		}
 	}
 	
@@ -139,5 +140,9 @@ public class IONodeUtils {
 			return path;
 		}
 		return path.substring(path.lastIndexOf("/") + 1);
+	}
+	
+	public static String escapeBackslash(String path) {
+		return path.replace("\\", "/");
 	}
 }

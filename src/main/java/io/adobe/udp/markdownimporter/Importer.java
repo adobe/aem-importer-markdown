@@ -1,6 +1,8 @@
 package io.adobe.udp.markdownimporter;
 
 import io.adobe.udp.markdownimporter.mappings.MarkdownMappings;
+import io.adobe.udp.markdownimporter.services.FileSystemPathService;
+import io.adobe.udp.markdownimporter.services.FileSystemPathServiceImpl;
 import io.adobe.udp.markdownimporter.services.GithubLinkService;
 import io.adobe.udp.markdownimporter.services.GithubLinkServiceImpl;
 import io.adobe.udp.markdownimporter.services.MarkdownParserService;
@@ -36,8 +38,14 @@ public class Importer
        MarkdownMappings.configure(inputConfig.getComponentMappings());
        MarkdownParserService markdownParserService = new MarkdownParserServiceImpl();
        GithubLinkService githubLinkService = new GithubLinkServiceImpl();
-       MarkdownFileImportScheduler importer = new MarkdownFileImportScheduler(markdownParserService, githubLinkService);
-       importer.processGithubPage(inputConfig);
+      MarkdownImporter importer = null;
+      if(inputConfig.getWorkingDirs() == null) {
+    	  importer = new GithubMarkdownImporter(markdownParserService, githubLinkService, inputConfig);
+      } else {
+    	  FileSystemPathService pathService = new FileSystemPathServiceImpl();
+    	  importer = new WorkdirMarkdownImporter(markdownParserService, githubLinkService, pathService, inputConfig);
+      }
+       importer.processGithubPage();
        Map<String, PageData> pages = importer.getPageData();
        Map<String, File> images = importer.getImages();
        RootPageData root = new RootPageData(inputConfig);

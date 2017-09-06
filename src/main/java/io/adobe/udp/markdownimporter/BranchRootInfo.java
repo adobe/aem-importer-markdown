@@ -28,15 +28,15 @@ public class BranchRootInfo {
 	}
 	
 	public static BranchRootInfo createBranchRootInfo(String rootPage,
-			List<String> configPages, GithubData githubData,
+			List<String> configPages, String branch,
 			Set<String> pages, boolean first, boolean hasPages) {
-		String rootPath = githubData.getRepositoryBranch();
+		String rootPath = branch;
 		if(hasPages && pages.size() > 0) {
 			rootPath = pages.iterator().next();
 		}
 		String commonPrefix = StringUtils.getCommonPrefix(pages.toArray(new String[pages.size()]));
 		if(!hasPages) {
-			return new BranchRootInfo(rootPage, githubData.getRepositoryBranch(), null, null,
+			return new BranchRootInfo(rootPage, branch, null, null,
 					 first);
 		}
 		String rootPrefix = rootPath.contains("/") ? rootPath.substring(0, rootPath.lastIndexOf("/"))
