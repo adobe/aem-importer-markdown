@@ -9,6 +9,24 @@
 
   <name>markdown-importer</name>
   <url>http://maven.apache.org</url>
+  
+  <repositories>
+      <repository>
+           <id>central-adobe</id>
+           <name>Adobe Proxy Repository</name>
+           <url>http://repo.adobe.com/nexus/content/groups/public</url>
+           <layout>default</layout>
+         </repository>
+        <repository>
+		    <id>central</id>
+		    <name>Maven Repository Switchboard</name>
+		    <layout>default</layout>
+		    <url>http://repo1.maven.org/maven2</url>
+		    <snapshots>
+		      <enabled>false</enabled>
+		    </snapshots>
+		  </repository>
+   </repositories>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -1,4 +1,4 @@
-rootPath : /content/udp/en/apis/my
+rootPath : /content/udp/en/apis/workdir
 rootTitle : generated docs 
 rootTemplate : /apps/udp/templates/githubdocumentation
 rootPageResourceType : udp/components/structure/githubdocumentation
@@ -6,9 +6,10 @@ pageTemplate : /apps/udp/templates/importedgithubpage
 pageResourceType : udp/components/structure/githubpage
 packageName : importerDemo
 group : io.adobe
-version : 1.0 
+version : 1.3 
 pages:
  - pages* 
+ - README.md
 
 githubUrl : github.com
 githubContentUrl : https://raw.githubusercontent.com
@@ -21,6 +22,10 @@ privateRepository : false
 branches:
  - master
  - develop
+ #if working dirs are set then api import will be skipped
+workingDirs :
+ - C:\github\iotest\importerTest;master
+ - C:\github\iotest\importerTest;develop
 
 componentMappings:
  com.vladsch.flexmark.ast.Node : io.adobe.udp.markdownimporter.mappings.MarkdownParagraphMapper
