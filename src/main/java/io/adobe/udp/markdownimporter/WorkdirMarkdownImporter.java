@@ -63,13 +63,13 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 				List<String> dirs = config.getWorkingDirs();
 				for(String dir : dirs) {
 					boolean first = true;
-					String[] dirData = dir.split(";");
+					String[] dirData = dir.split(":",2);
 					if(dirData == null || dirData.length < 2) {
 						System.out.println("Wrong dir entry, it needs to containe path and corresponding branch separated with semicolon");
 						continue;
 					}
-					String dirPath = dirData[0];
-					String branch = dirData[1];
+					String branch = dirData[0];
+					String dirPath = dirData[1];
 					FileSystemPathService pathService = new FileSystemPathServiceImpl();
 					List<String> configPages = getConfigPages(config);
 					boolean hasPages = configPages.size() > 0;

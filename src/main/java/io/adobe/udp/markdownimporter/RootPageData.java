@@ -27,7 +27,9 @@ public class RootPageData implements PageData {
 		result.put("imported", true);
 		result.put("isFolder", true);
 		result.put("isDocumentationRoot", "true");
-		githubData.put(GithubConstants.BRANCH, inputConfig.getBranches().toArray());
+		if(inputConfig.getBranches() != null) {
+			githubData.put(GithubConstants.BRANCH, inputConfig.getBranches().toArray());
+		}
 		if(inputConfig.getPages() != null) {
 			githubData.put("pages", inputConfig.getPages().toArray());
 		}
