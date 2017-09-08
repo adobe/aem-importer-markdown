@@ -69,11 +69,11 @@ following settings exist for the integrated GitHub client:
 * `githubApiUrl`: hostname of the GitHub API server
 * `apiToken`: the API token to access GitHub. Get it from **GitHub** -> **Settings** -> **Personal access tokens** -> **Generate new token**
 * `commitTime`: TODO
-* `repsoitoryUrl`: URL of the repsoitory you want to access
+* `repositoryUrl`: URL of the repository you want to access
 * `privateRepository`: set `true` if this is a private repository
 * `branches`: a list of branches or tags that will be imported. This is useful when you have multiple API versions that need to be documented in parallel.
 
-#### Example Config
+#### Example Configuration
 ```yaml
 githubUrl: github.com
 githubContentUrl: https://raw.githubusercontent.com
