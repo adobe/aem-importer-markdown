@@ -55,7 +55,7 @@ public class Importer
     }
     
     
-    private static void generatePackage(Map<String, PageData> pages, Map<String, File> images, InputConfig config) throws IOException {
+    public static void generatePackage(Map<String, PageData> pages, Map<String, File> images, InputConfig config) throws IOException {
     	File zipFile = new File(config.getPackageName() +".zip");
     	
     	Map<String, Map<String, Object>> content = toContent(pages);
