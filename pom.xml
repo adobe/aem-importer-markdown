@@ -165,4 +165,16 @@
 		    <version>1.3.0</version>
 		</dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>or1010050152009.corp.adobe.com-releases</name>
+        <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-release</url>
+    </repository>
+	<snapshotRepository>
+        <id>snapshots</id>
+        <name>or1010050152009.corp.adobe.com-snapshots</name>
+        <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-snapshot</url>
+    </snapshotRepository>
+</distributionManagement>
 </project>
