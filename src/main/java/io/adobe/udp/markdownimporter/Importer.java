@@ -13,8 +13,8 @@ import io.wcm.tooling.commons.contentpackagebuilder.ContentPackageBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -81,9 +81,8 @@ public class Importer
 
     }
 
-
 	private static Map<String, Map<String, Object>> toContent(Map<String, PageData> pages) {
-		Map<String, Map<String, Object>> content = new HashMap<String, Map<String, Object>>();
+		Map<String, Map<String, Object>> content = new TreeMap<String, Map<String, Object>>();
 		for(Map.Entry<String, PageData> entry : pages.entrySet()) {
 			content.put(entry.getKey(), entry.getValue().toContent());
 		}
