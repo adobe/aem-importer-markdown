@@ -69,11 +69,11 @@ following settings exist for the integrated GitHub client:
 * `githubApiUrl`: hostname of the GitHub API server
 * `apiToken`: the API token to access GitHub. Get it from **GitHub** -> **Settings** -> **Personal access tokens** -> **Generate new token**
 * `commitTime`: TODO
-* `repsoitoryUrl`: URL of the repsoitory you want to access
+* `repositoryUrl`: URL of the repository you want to access
 * `privateRepository`: set `true` if this is a private repository
 * `branches`: a list of branches or tags that will be imported. This is useful when you have multiple API versions that need to be documented in parallel.
 
-#### Example Config
+#### Example Configuration
 ```yaml
 githubUrl: github.com
 githubContentUrl: https://raw.githubusercontent.com
@@ -96,7 +96,26 @@ The local checkout is ideal when you are working with a CI system that already h
 
 Following settings are available for local checkout:
 
-TODO
+* `githubUrl`: hostname of your GitHub instance
+* `repositoryUrl`: URL of the repsoitory, in case you want to enable the "edit on GitHub link"
+* `branches`: a list of branches or tags that will be imported. This is useful when you have multiple API versions that need to be documented in parallel.
+* `workingDirs`: a map of branch names to local checkout directories. Both absolute and relative path names are acceptable
+
+
+#### Example Configuration
+```yaml
+repositoryUrl : https://github.com/iotester/importerTest
+privateRepository : false
+
+branches:
+ - master
+ - develop
+
+ #if working dirs are set then api import will be skipped
+workingDirs :
+ - master:./exports/master
+ - develop:./exports/develop
+```
 
 ## Contributing
 

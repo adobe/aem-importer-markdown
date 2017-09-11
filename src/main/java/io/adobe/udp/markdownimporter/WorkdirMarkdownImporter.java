@@ -65,7 +65,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 					boolean first = true;
 					String[] dirData = dir.split(":",2);
 					if(dirData == null || dirData.length < 2) {
-						System.out.println("Wrong dir entry, it needs to containe path and corresponding branch separated with semicolon");
+						System.out.println("Wrong dir entry, it needs to contain path and corresponding branch separated with semicolon");
 						continue;
 					}
 					String branch = dirData[0];
