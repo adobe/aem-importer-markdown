@@ -82,9 +82,6 @@ public class BranchRootInfo {
 	
 	public String getInternalPath(String githubPath) {
 		String internalPath = IONodeUtils.removeFirstSlash(githubPath);
-		if(StringUtils.isNotBlank(rootPath)) {
-			internalPath = IONodeUtils.removeFirstSlash(internalPath.replaceFirst(rootPath, ""));
-		}
 		if(StringUtils.isNoneBlank(rootPath) && rootPath.contains("/")) {
 			internalPath = internalPath.replaceFirst(rootPath.substring(0, rootPath.lastIndexOf("/")), "");
 		}
