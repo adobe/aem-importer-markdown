@@ -24,6 +24,9 @@ public class FrontMatterMapper implements MarkdownNodeMapper {
 				if(keyValue.getKey().equals("title")) {
 					pageData.setTitle(keyValue.getValues().toArray(new String[1])[0]);
 				}
+				if(keyValue.getKey().equals("template")) {
+					pageData.setTemplateFromYaml(keyValue.getValues().toArray(new String[1])[0]);;
+				}
 				properties.add(keyValue.getKey() + "=" + keyValue.getValues());
 			}
 			entry = entry.getNext();

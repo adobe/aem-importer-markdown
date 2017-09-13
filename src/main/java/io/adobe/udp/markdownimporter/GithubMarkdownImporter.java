@@ -107,7 +107,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		String pageUrl = githubLinkService.getFileBlobUrl(githubData, rootInfo.getRootPath());
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(branchPage + "/" + GithubConstants.IMAGES, githubData,
 				rootInfo, branchPage, pageUrl);
-		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getDesignPath());
+		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getTemplateMapper(), config.getDesignPath());
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(pageUrl);
 		pageData.setBranch(githubData.getRepositoryBranch());
@@ -330,7 +330,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		String fileBlobUrl = githubLinkService.getFileBlobUrl(githubData, githubFilePath);
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(filePath + "/" + GithubConstants.IMAGES, githubData,
 				rootInfo, filePath, fileBlobUrl);
-		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getDesignPath());
+		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getTemplateMapper(), config.getDesignPath());
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(fileBlobUrl);
 		if(StringUtils.isBlank(pageData.getTitle())) {

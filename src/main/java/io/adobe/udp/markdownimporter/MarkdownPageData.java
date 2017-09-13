@@ -25,10 +25,12 @@ public class MarkdownPageData implements PageData {
 	private Map<String, File> images;
 	private String githubUrl;
 	private String branch;
+	private TemplateMapper templateMapper;
 	
-	public MarkdownPageData(String resourceType, String template, String designPath) {
+	public MarkdownPageData(String resourceType, String template, TemplateMapper templateMapper, String designPath) {
 		this.resourceType = resourceType;
 		this.template = template;
+		this.templateMapper = templateMapper;
 		this.designPath = designPath;
 		this.components = new ArrayList<HashMap<String, String>>();
 		this.yamlProperties = new ArrayList<String>();
@@ -43,6 +45,12 @@ public class MarkdownPageData implements PageData {
 	
 	public List<String> getYamlProperties() {
 		return yamlProperties;
+	}
+	
+	public void setTemplateFromYaml(String name) {
+		TemplateMapping mapping  = this.templateMapper.getMapping(name);
+		this.template = mapping.getTemplate();
+		this.resourceType = mapping.getResourceType();
 	}
 
 	public String getTitle() {
@@ -67,6 +75,10 @@ public class MarkdownPageData implements PageData {
 	
 	public Map<String, File> getImages() {
 		return images;
+	}
+	
+	public TemplateMapper getTemplateMapper() {
+		return this.templateMapper;
 	}
 
 	public Map<String, Object> toContent() {

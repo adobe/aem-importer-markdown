@@ -1,7 +1,9 @@
 package io.adobe.udp.markdownimporter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class InputConfig {
 	
@@ -23,12 +25,16 @@ public class InputConfig {
 	private String rootPageResourceType;
 	private String pageTemplate;
 	private String pageResourceType;
+	private Map<String, String> templateMappings;
 	private String designPath;
 	private String rootTitle;
 	private String packageName;
 	private String group;
 	private String version;
 	private boolean localCheckout;
+	
+	private TemplateMapper templateMapper;;
+	private TemplateMapping defaultMapping;
 	
 	public String getGithubUrl() {
 		return githubUrl;
@@ -158,6 +164,37 @@ public class InputConfig {
 	}
 	public boolean isLocalCheckout() {
 		return this.workingDirs != null;
+	}
+	public Map<String, String> getTemplateMappings() {
+		return templateMappings;
+	}
+	public void setTemplateMappings(Map<String, String> templateMappings) {
+		this.templateMappings = templateMappings;
+	}
+	public TemplateMapper getTemplateMapper() {
+		if(templateMapper == null) {
+			Map<String, TemplateMapping> mappings = new HashMap<String, TemplateMapping>();
+			if(this.templateMappings != null) {
+				for(Map.Entry<String, String> mappingEntry : templateMappings.entrySet()) {
+					TemplateMapping mapping = createMapping(mappingEntry);
+					mappings.put(mapping.getName(), mapping);
+				}
+			}
+			templateMapper = new TemplateMapper(mappings, getDefaultMapping());
+		}
+		return templateMapper;
+	}
+	
+	private TemplateMapping createMapping(Entry<String, String> mappingEntry) {
+		String[] elements = mappingEntry.getValue().split(":");
+		return new TemplateMapping(mappingEntry.getKey(), elements[0], elements[1]);
+	}
+	
+	private TemplateMapping getDefaultMapping() {
+		if(defaultMapping == null) {
+			defaultMapping = new TemplateMapping("", pageTemplate, pageResourceType);
+		}
+		return defaultMapping;
 	}
 
 }
