@@ -123,3 +123,76 @@ This application is work in progress and we are happy about any contribution. Yo
 - make a pull request on GitHub
 - file an issue against the APM project in jira.adobe.com
 - just say hi in the `#www_adobe_io` channel on Slack (Enterprise Grid)
+
+### Setting up to Deploy
+
+This project is configured to deploy to [Adobe Artifactory](https://artifactory.corp.adobe.com/artifactory/webapp/#/artifacts/browse/tree/General/maven-markdown-tools-snapshot/io/adobe/udp/markdown-importer). In order to deploy yourself, you need to update your `settings.xml` with following snippets:
+
+```xml
+  <servers>
+    <server>
+      <username><!-- replace with your LDAP user name --></username>
+      <password><!-- replace with your API key from Artifactory --></password>
+      <id>central</id>
+    </server>
+    <server>
+      <username><!-- replace with your LDAP user name --></username>
+      <password><!-- replace with your API key from Artifactory --></password>
+      <id>snapshots</id>
+    </server>
+  </servers>
+```
+
+and
+
+```xml
+    <profile>
+      <repositories>
+        <repository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>maven-markdown-tools-release</name>
+          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-release</url>
+        </repository>
+        <repository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>maven-markdown-tools-snapshot</name>
+          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-snapshot</url>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <snapshots>
+            <enabled>false</enabled>
+          </snapshots>
+          <id>central</id>
+          <name>maven-markdown-tools-release</name>
+          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-release</url>
+        </pluginRepository>
+        <pluginRepository>
+          <snapshots />
+          <id>snapshots</id>
+          <name>maven-markdown-tools-snapshot</name>
+          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-snapshot</url>
+        </pluginRepository>
+      </pluginRepositories>
+      <id>artifactory-markdown</id>
+    </profile>
+```
+
+and
+
+```xml
+    <activeProfiles>
+        <activeProfile>artifactory-markdown</activeProfile>
+    </activeProfiles>
+```
+
+### Deploying a Build
+
+```bash
+$ mvn deploy
+```
