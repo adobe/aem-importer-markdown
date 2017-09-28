@@ -83,7 +83,7 @@ public class MarkdownPageData implements PageData {
 
 	public Map<String, Object> toContent() {
 		Map<String, Object> markdownContent = new TreeMap<String, Object>();
-		int i = 0;
+		int i = 10000;
 		for(HashMap<String, String> component : components) {
 			markdownContent.put("element_" + i++ , component);
 		}
