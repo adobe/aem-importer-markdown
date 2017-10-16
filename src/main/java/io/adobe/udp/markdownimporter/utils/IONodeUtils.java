@@ -3,6 +3,7 @@ package io.adobe.udp.markdownimporter.utils;
 import io.adobe.udp.markdownimporter.BranchRootInfo;
 import io.adobe.udp.markdownimporter.FolderPageData;
 import io.adobe.udp.markdownimporter.GithubData;
+import io.adobe.udp.markdownimporter.InputConfig;
 import io.adobe.udp.markdownimporter.PageData;
 
 import java.util.Iterator;
@@ -68,14 +69,15 @@ public class IONodeUtils {
 		
 	}
 	
-	public static void addPlaceHolderTemplate(String rootPath, String filePath, String githubFilePath, Set<String> files, Map<String, PageData> pages, FolderPageData pageData) {
+	public static void addPlaceHolderTemplate(String rootPath, String filePath, String githubFilePath, Set<String> files, Map<String, PageData> pages, InputConfig config) {
 		String parentPath = getParentPath(filePath);
 		if(!rootPath.equals(filePath) && !rootPath.equals(parentPath)) {
 			if(!files.contains(getParentPath(githubFilePath) + GithubConstants.MARKDOWN_EXTENSION) && !pages.containsKey(parentPath)) {
-				pageData.setTitle(extractName(parentPath));
-				pages.put(parentPath, pageData);
+				FolderPageData folderPageData = new FolderPageData(config.getPageResourceType(), config.getPageTemplate(), config.getDesignPath());
+				folderPageData.setTitle(extractName(parentPath));
+				pages.put(parentPath, folderPageData);
 			}
-			addPlaceHolderTemplate(rootPath, parentPath, getParentPath(githubFilePath), files, pages, pageData);
+			addPlaceHolderTemplate(rootPath, parentPath, getParentPath(githubFilePath), files, pages, config);
 		}
 	}
 	
@@ -144,5 +146,15 @@ public class IONodeUtils {
 	
 	public static String escapeBackslash(String path) {
 		return path.replace("\\", "/");
+	}
+	
+	/**
+	 * removes _md from rewritten path
+	 */
+	public static String removeMDExtensionFromPath(String path) {
+		if(StringUtils.endsWith(path, "_md")) {
+			return StringUtils.removeEnd(path, "_md");
+		}
+		return path;
 	}
 }

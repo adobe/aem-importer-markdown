@@ -246,8 +246,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		String pageName = IONodeUtils.replaceDotsInPath(internalFilePath.substring(internalFilePath.lastIndexOf("/") + 1));
 		String filePath = parentPath + IONodeUtils.trimName(pageName);
 		InputStreamReader reader = saveMarkdownFile(pathService.getLocalFilePath(githubFilePath, dirPath));
-		FolderPageData folderPageData = new FolderPageData(config.getPageResourceType(), config.getPageTemplate(), config.getDesignPath());
-		IONodeUtils.addPlaceHolderTemplate(rootPath, filePath, githubFilePath, files, pages, folderPageData);
+		IONodeUtils.addPlaceHolderTemplate(rootPath, filePath, githubFilePath, files, pages, config);
 		List<String> imagesList = new ArrayList<String>();
 		String fileBlobUrl = githubLinkService.getFileBlobUrl(githubData, githubFilePath);
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(filePath + "/" + GithubConstants.IMAGES, githubData,
@@ -256,7 +255,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(fileBlobUrl);
 		if(StringUtils.isBlank(pageData.getTitle())) {
-			pageData.setTitle(pageName);
+			pageData.setTitle(IONodeUtils.removeMDExtensionFromPath(pageName));
 		}
 		collectImages(filePath, githubData, imagesList, githubFilePath, this.images);
 		this.pages.put(filePath, pageData);

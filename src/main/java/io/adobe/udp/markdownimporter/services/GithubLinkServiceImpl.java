@@ -197,7 +197,10 @@ public class GithubLinkServiceImpl implements GithubLinkService {
 	}
 
 	public String getFileBlobUrl(GithubData githubData, String githubFilePath) {
-		return githubData.getBranchRootUrl() + IONodeUtils.removeFirstSlash(githubFilePath);
+		if(StringUtils.isNotBlank(githubData.getRepository())) {
+			return githubData.getBranchRootUrl() + IONodeUtils.removeFirstSlash(githubFilePath);
+		}
+		return StringUtils.EMPTY;
 	}
 
 }

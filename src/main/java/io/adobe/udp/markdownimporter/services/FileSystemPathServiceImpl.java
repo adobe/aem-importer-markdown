@@ -50,7 +50,7 @@ public class FileSystemPathServiceImpl implements FileSystemPathService {
 			githubData.setBlobPrefix("/" + segments[1] + "/" + segments[2] + "/" + GithubConstants.BLOB + "/" + branch + "/");
 			githubData.setTreePrefix("/" + segments[1] + "/" + segments[2] + "/" + GithubConstants.TREE + "/" + branch + "/");
 			githubData.setRawPrefix("/" + segments[1] + "/" + segments[2] + "/" + GithubConstants.RAW + "/" + branch + "/");
-			githubData.setBranchRootUrl(Constants.HTTPS_PREFIX + githubData.getGithubUrl() + githubData.getBlobPrefix());
+			githubData.setBranchRootUrl(Constants.HTTPS_PREFIX + url.getHost() + githubData.getBlobPrefix());
 			githubData.setRawContentBranchRootUrl(Constants.HTTPS_PREFIX + githubData.getGithubUrl() + githubData.getRawPrefix());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

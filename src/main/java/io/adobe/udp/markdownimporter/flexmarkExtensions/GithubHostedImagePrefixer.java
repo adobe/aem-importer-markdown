@@ -27,7 +27,7 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 
 	@Override
 	public String prefix(String path) {
-		if(!path.startsWith(Constants.HTTP_PREFIX) && !path.startsWith(Constants.HTTPS_PREFIX)) {
+		if(!path.startsWith(Constants.HTTP_PREFIX) && !path.startsWith(Constants.HTTPS_PREFIX) && !path.startsWith("#")) {
 			if(StringUtils.isNotBlank(path) && path.endsWith(GithubConstants.MARKDOWN_EXTENSION)) {
 				return rewritePathToMarkdown(path);
 			}
