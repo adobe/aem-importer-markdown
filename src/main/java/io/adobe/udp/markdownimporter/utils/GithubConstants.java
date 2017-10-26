@@ -46,4 +46,5 @@ public class GithubConstants {
 	public static final String BRANCH_FILE = "branchFile";
 	public static final String COMMON_PREFIX = "commonPrefix";
 	public static final String YAML_PROPERTIES = "front_matter";
+	public static final Object NAV_ORDER_PROPERTY = "nav_order";
 }

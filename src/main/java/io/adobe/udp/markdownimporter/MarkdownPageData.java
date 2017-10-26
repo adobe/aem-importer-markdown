@@ -26,6 +26,7 @@ public class MarkdownPageData implements PageData {
 	private String githubUrl;
 	private String branch;
 	private TemplateMapper templateMapper;
+	private long navOrder;
 	
 	public MarkdownPageData(String resourceType, String template, TemplateMapper templateMapper, String designPath) {
 		this.resourceType = resourceType;
@@ -73,6 +74,10 @@ public class MarkdownPageData implements PageData {
 		this.branch = branch;
 	}
 	
+	public void setNavOrder(long navOrder) {
+		this.navOrder = navOrder;
+	}
+
 	public Map<String, File> getImages() {
 		return images;
 	}
@@ -95,6 +100,9 @@ public class MarkdownPageData implements PageData {
 		result.put(GithubConstants.BRANCH, branch);
 		result.put("imported", true);
 		result.put("githubUrl", githubUrl);
+		if(navOrder > 0) {
+			result.put("navOrder", navOrder);
+		}
 		result.put(JcrConstants.JCR_TITLE, title);
 		return result;
 	}

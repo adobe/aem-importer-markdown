@@ -1,11 +1,14 @@
 package io.adobe.udp.markdownimporter.mappings;
 
 import io.adobe.udp.markdownimporter.MarkdownPageData;
+import io.adobe.udp.markdownimporter.utils.GithubConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.jcr.RepositoryException;
+
+import org.apache.commons.lang3.math.NumberUtils;
 
 import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.ext.front.matter.YamlFrontMatterNode;
@@ -26,6 +29,9 @@ public class FrontMatterMapper implements MarkdownNodeMapper {
 				}
 				if(keyValue.getKey().equals("template")) {
 					pageData.setTemplateFromYaml(keyValue.getValues().toArray(new String[1])[0]);;
+				}
+				if(keyValue.getKey().equals(GithubConstants.NAV_ORDER_PROPERTY)) {
+					pageData.setNavOrder(NumberUtils.toLong(keyValue.getValues().toArray(new String[1])[0]));
 				}
 				properties.add(keyValue.getKey() + "=" + keyValue.getValues());
 			}
