@@ -1,4 +1,4 @@
-# unified-dev-portal
+# adobe-io-website
 # Standalone Markdown Importer
 
 Imports Markdown documents into AEM, creating an AEM content package on the go.
@@ -50,7 +50,9 @@ Run the application using `java -jar` and pass in a configuration file:
 $ java -jar java -jar target/importer-jar-with-dependencies.jar markdown2AEM.yml
 ```
 
-This will create a file `importerDemo.zip`, which you can install in your AEM instance.
+This will create a file `importerDemo.zip`, which you can install in your AEM instance using the package manager or curl command.
+
+```curl -u userid:password -F file=@"importerDemo.zip" -F name="importerDemo.zip" -F force=true -F install=true http://localhost:port/crx/packmgr/service.jsp```
 
 ## Configuration
 
@@ -119,7 +121,7 @@ workingDirs :
 
 ## Contributing
 
-This application is work in progress and we are happy about any contribution. You can
+This application is work in progress and we are happy about any contribution. You can 
 - make a pull request on GitHub
 - file an issue against the APM project in jira.adobe.com
 - just say hi in the `#www_adobe_io` channel on Slack (Enterprise Grid)
