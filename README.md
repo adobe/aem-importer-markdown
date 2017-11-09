@@ -1,5 +1,4 @@
-# adobe-io-website
-# Standalone Markdown Importer
+# Standalone Markdown Importer for AEM
 
 Imports Markdown documents into AEM, creating an AEM content package on the go.
 
