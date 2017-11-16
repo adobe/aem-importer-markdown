@@ -1,11 +1,11 @@
 package io.adobe.udp.markdownimporter.services;
 
-import java.net.URL;
-
 import io.adobe.udp.markdownimporter.GithubData;
 import io.adobe.udp.markdownimporter.InputConfig;
 import io.adobe.udp.markdownimporter.utils.Constants;
 import io.adobe.udp.markdownimporter.utils.GithubConstants;
+
+import java.net.URL;
 
 public class FileSystemPathServiceImpl implements FileSystemPathService {
 
@@ -23,8 +23,7 @@ public class FileSystemPathServiceImpl implements FileSystemPathService {
 	@Override
 	public String getFileBlobUrl(InputConfig config, String rootPath,
 			String dirPath) {
-		// TODO Auto-generated method stub
-		return null;
+		return rootPath;
 	}
 
 	@Override

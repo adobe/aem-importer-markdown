@@ -10,7 +10,7 @@ import com.vladsch.flexmark.util.options.MutableDataHolder;
 
 public class ImageUrlExtension implements HtmlRenderer.HtmlRendererExtension {
 	
-	public static final DataKey<UrlPrefixer> URL_CHANGER = new DataKey<UrlPrefixer>("urlprefixer", new GithubHostedImagePrefixer("", null, null, null, null));    
+	public static final DataKey<UrlPrefixer> URL_CHANGER = new DataKey<UrlPrefixer>("urlprefixer", new GithubHostedImagePrefixer("", null, null, null, null, null, null));    
 	
 	    private ImageUrlExtension() {
 	    }

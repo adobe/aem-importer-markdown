@@ -11,20 +11,24 @@ public class BranchRootInfo {
 	
 	public static final String COMMON_PREFIX = "commonPrefix";
 	
+	private String documentationRootPath;
 	private String rootGithubFile;
 	private String rootPath;
 	private String rootPrefix;
 	private String commonPrefix;
 	private String branchPageName;
+	private String branch;
 	private boolean first;
 	
-	public BranchRootInfo(String documentationRootPath, String rooPath, String rootPrefix, String commonPrefix,
+	public BranchRootInfo(String documentationRootPath, String rooPath, String rootPrefix, String commonPrefix, String branch,
 			boolean first) {
+		this.documentationRootPath = documentationRootPath;
 		this.rootGithubFile = rooPath;
 		this.rootPath = io.adobe.udp.markdownimporter.utils.IONodeUtils.stripFromExtension(rooPath);
 		this.commonPrefix = commonPrefix;
 		this.first = first;
 		this.branchPageName = extractName();
+		this.branch = branch;
 	}
 	
 	public static BranchRootInfo createBranchRootInfo(String rootPage,
@@ -36,12 +40,12 @@ public class BranchRootInfo {
 		}
 		String commonPrefix = StringUtils.getCommonPrefix(pages.toArray(new String[pages.size()]));
 		if(!hasPages) {
-			return new BranchRootInfo(rootPage, branch, null, null,
+			return new BranchRootInfo(rootPage, branch, null, null, branch,
 					 first);
 		}
 		String rootPrefix = rootPath.contains("/") ? rootPath.substring(0, rootPath.lastIndexOf("/"))
 				: rootPath;
-		return new BranchRootInfo(rootPage, rootPath, rootPrefix, commonPrefix,
+		return new BranchRootInfo(rootPage, rootPath, rootPrefix, commonPrefix, branch,
 				 first);
 	}
 
@@ -51,6 +55,10 @@ public class BranchRootInfo {
 			return rootPath;
 		}
 		return rootPath.substring(rootPath.lastIndexOf("/") + 1);
+	}
+
+	public String getDocumentationRootPath() {
+		return documentationRootPath;
 	}
 
 	public String getRootPath() {
@@ -94,8 +102,23 @@ public class BranchRootInfo {
 	public String getBranchPageName() {
 		return branchPageName;
 	}
+	
+	public String getBranchPageNameWithSuffix() {
+		return branchPageName + "_" + branch;
+	}
 
 	public String getRootGithubFile() {
+		return rootGithubFile;
+	}
+
+	public String getBranchRootPath() {
+		return documentationRootPath + "/" + IONodeUtils.replaceDotsInPath(getBranchPageNameWithSuffix());
+	}
+	
+	public String getRootGithubFileName() {
+		if(rootGithubFile.contains("/")) {
+			return rootGithubFile.substring(rootGithubFile.indexOf("/") + 1);
+		}
 		return rootGithubFile;
 	}
 

@@ -6,26 +6,12 @@ import io.adobe.udp.markdownimporter.GithubData;
 import io.adobe.udp.markdownimporter.InputConfig;
 import io.adobe.udp.markdownimporter.PageData;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.jcr.Node;
-import javax.jcr.NodeIterator;
-import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.jackrabbit.JcrConstants;
-import org.apache.jackrabbit.commons.JcrUtils;
-import org.apache.sling.api.resource.Resource;
-import org.apache.sling.api.resource.ResourceResolver;
-import org.apache.sling.api.resource.ValueMap;
-import org.apache.sling.jcr.resource.JcrResourceConstants;
-
-import com.day.cq.commons.jcr.JcrUtil;
-import com.day.cq.wcm.api.NameConstants;
-import com.day.cq.wcm.api.Page;
 
 public class IONodeUtils {
 		

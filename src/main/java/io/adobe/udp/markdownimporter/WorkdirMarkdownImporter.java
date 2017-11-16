@@ -73,14 +73,15 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 					FileSystemPathService pathService = new FileSystemPathServiceImpl();
 					List<String> configPages = getConfigPages(config);
 					boolean hasPages = configPages.size() > 0;
+					Set<String> allFiles = getAllFiles(configPages, dirPath, pathService);
 					BranchRootInfo branchRootInfo = BranchRootInfo.createBranchRootInfo(config.getRootPath(), configPages, branch,
-							getAllFiles(configPages, dirPath, pathService), first, hasPages);
+							allFiles, first, hasPages);
 					String branchPath = IONodeUtils.getBranchPageName(config.getRootPath(), branchRootInfo.getBranchPageName() + "_" + branch);
 					Set<String> files = getAllFiles(configPages, dirPath, pathService);
 					GithubData githubData = pathService.createGithubData(branch, config);
-					branchSuccess = createBranchPage(config.getRootPath(), githubData, dirPath, branch, branchRootInfo, hasPages, pathService, config);
+					branchSuccess = createBranchPage(config.getRootPath(), githubData, dirPath, branch, branchRootInfo, hasPages, pathService, config, allFiles);
 					files.remove(branchRootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION);
-					pageSuccess = saveGithubPages(branchPath, files,  githubData,  branchRootInfo, dirPath, config);
+					pageSuccess = saveGithubPages(branchPath, files,  githubData,  branchRootInfo, dirPath, config, allFiles);
 //					first= false;
 				}
 //	
@@ -92,7 +93,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 	}
 	
 	private boolean createBranchPage(String rootPage, GithubData githubData,  String dirPath, String branch, BranchRootInfo rootInfo,
-				boolean hasPages, FileSystemPathService pathService, InputConfig config) throws RepositoryException, IOException {
+				boolean hasPages, FileSystemPathService pathService, InputConfig config, Set<String> allFiles) throws RepositoryException, IOException {
 		boolean success;
 		String branchPage = getBranchPagePath( rootPage, branch, rootInfo,
 				hasPages);
@@ -106,7 +107,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		List<String> imagesList = new ArrayList<String>();
 		String pageUrl = pathService.getFileBlobUrl(config, rootInfo.getRootPath(), dirPath);
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(branchPage + "/" + GithubConstants.IMAGES, githubData,
-				rootInfo, branchPage, pageUrl);
+				rootInfo, branchPage, pageUrl, allFiles, rootInfo.getRootPath());
 		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getTemplateMapper(), config.getDesignPath());
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(pageUrl);
@@ -219,11 +220,11 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 	}
 
 	private boolean saveGithubPages(String rootPath, Set<String> files,  GithubData githubData,
-			 BranchRootInfo rootInfo, String dirPath, InputConfig config) throws RepositoryException {
+			 BranchRootInfo rootInfo, String dirPath, InputConfig config, Set<String> allFiles) throws RepositoryException {
 		boolean success = true;
 		for(String file : files) {
 			try {
-				boolean saved = createGithubPage(rootPath, file, rootInfo, githubData, files, dirPath, config);
+				boolean saved = createGithubPage(rootPath, file, rootInfo, githubData, files, dirPath, config, allFiles);
 				if(!saved) {
 					success = false;
 				}
@@ -237,7 +238,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 	}
 
 	private boolean createGithubPage(String rootPath, String githubFilePath, BranchRootInfo rootInfo, GithubData githubData,
-			Set<String> files, String dirPath, InputConfig config) throws IOException, RepositoryException {
+			Set<String> files, String dirPath, InputConfig config, Set<String> allFiles) throws IOException, RepositoryException {
 		boolean success;
 		githubFilePath = IONodeUtils.removeFirstSlash(githubFilePath);
 		String internalFilePath = rootInfo.getInternalPath(githubFilePath);
@@ -249,8 +250,9 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		IONodeUtils.addPlaceHolderTemplate(rootPath, filePath, githubFilePath, files, pages, config);
 		List<String> imagesList = new ArrayList<String>();
 		String fileBlobUrl = githubLinkService.getFileBlobUrl(githubData, githubFilePath);
+		fileBlobUrl = StringUtils.isNoneBlank(fileBlobUrl) ? fileBlobUrl : githubFilePath;
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(filePath + "/" + GithubConstants.IMAGES, githubData,
-				rootInfo, filePath, fileBlobUrl);
+				rootInfo, filePath, fileBlobUrl, allFiles, githubFilePath);
 		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getTemplateMapper(), config.getDesignPath());
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(fileBlobUrl);
@@ -264,8 +266,8 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 	}
 
 	private GithubHostedImagePrefixer createUrlPrefixer(String urlPrefix, GithubData githubData, 
-			BranchRootInfo rootInfo, String pagePath, String fileBlobUrl)  {
-		return new GithubHostedImagePrefixer(urlPrefix, githubData, rootInfo, pagePath, fileBlobUrl);
+			BranchRootInfo rootInfo, String pagePath, String fileBlobUrl, Set<String> allFiles, String originalFilePath)  {
+		return new GithubHostedImagePrefixer(urlPrefix, githubData, rootInfo, pagePath, fileBlobUrl, allFiles, originalFilePath);
 	}
 
 	private InputStreamReader saveMarkdownFile(String location) throws IOException {

@@ -1,11 +1,8 @@
 package io.adobe.udp.markdownimporter.mappings;
 
 import io.adobe.udp.markdownimporter.MarkdownPageData;
-import io.adobe.udp.markdownimporter.flexmarkExtensions.ImageUrlExtension;
-import io.adobe.udp.markdownimporter.flexmarkExtensions.UrlPrefixer;
 import io.adobe.udp.markdownimporter.utils.Constants;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.jcr.RepositoryException;
@@ -13,14 +10,12 @@ import javax.jcr.RepositoryException;
 import org.apache.jackrabbit.JcrConstants;
 import org.jsoup.Jsoup;
 
-import com.vladsch.flexmark.Extension;
 import com.vladsch.flexmark.ast.Heading;
 import com.vladsch.flexmark.ast.Link;
 import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLink;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.options.DataKey;
 
 public class MarkdownHeadlineMapper implements MarkdownNodeMapper {
 

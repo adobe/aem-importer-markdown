@@ -72,13 +72,14 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 //					}
 					List<String> configPages = getConfigPages(config);
 					boolean hasPages = configPages.size() > 0;
+					Set<String> allFiles = getAllFiles(configPages, githubData, githubLinkService);
 					BranchRootInfo branchRootInfo = BranchRootInfo.createBranchRootInfo(config.getRootPath(), configPages, githubData.getRepositoryBranch(),
-							getAllFiles(configPages, githubData, githubLinkService), first, hasPages);
+							allFiles, first, hasPages);
 					String branchPath = IONodeUtils.getBranchPageName(config.getRootPath(), branchRootInfo.getBranchPageName() + "_" + githubData.getRepositoryBranch());
 					Set<String> files = getFiles(branchPath, configPages, githubData, configPages, branchRootInfo, githubLinkService);
-					branchSuccess = createBranchPage(config.getRootPath(), githubData, branchRootInfo, hasPages, githubLinkService, config);
+					branchSuccess = createBranchPage(config.getRootPath(), githubData, branchRootInfo, hasPages, githubLinkService, config, allFiles);
 					files.remove(branchRootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION);
-					pageSuccess = saveGithubPages(branchPath, files,  githubData,  branchRootInfo, config);
+					pageSuccess = saveGithubPages(branchPath, files,  githubData,  branchRootInfo, config, allFiles);
 //					first= false;
 				}
 //	
@@ -91,7 +92,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 	}
 	
 	private boolean createBranchPage(String rootPage, GithubData githubData, BranchRootInfo rootInfo,
-				boolean hasPages, GithubLinkService githubLinkService, InputConfig config) throws RepositoryException, IOException {
+				boolean hasPages, GithubLinkService githubLinkService, InputConfig config, Set<String> allFiles) throws RepositoryException, IOException {
 		boolean success;
 		String branchPage = getBranchPagePath( rootPage, githubData.getRepositoryBranch(), rootInfo,
 				hasPages);
@@ -106,7 +107,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		List<String> imagesList = new ArrayList<String>();
 		String pageUrl = githubLinkService.getFileBlobUrl(githubData, rootInfo.getRootPath());
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(branchPage + "/" + GithubConstants.IMAGES, githubData,
-				rootInfo, branchPage, pageUrl);
+				rootInfo, branchPage, pageUrl, allFiles, rootInfo.getRootPath());
 		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getTemplateMapper(), config.getDesignPath());
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(pageUrl);
@@ -297,11 +298,11 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 	}
 
 	private boolean saveGithubPages(String rootPath, Set<String> files,  GithubData githubData,
-			 BranchRootInfo rootInfo, InputConfig config) throws RepositoryException {
+			 BranchRootInfo rootInfo, InputConfig config, Set<String> allFiles) throws RepositoryException {
 		boolean success = true;
 		for(String file : files) {
 			try {
-				boolean saved = createGithubPage(rootPath, file, rootInfo, githubData, files, config);
+				boolean saved = createGithubPage(rootPath, file, rootInfo, githubData, files, config, allFiles);
 				if(!saved) {
 					success = false;
 				}
@@ -314,7 +315,8 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		
 	}
 
-	private boolean createGithubPage(String rootPath, String githubFilePath, BranchRootInfo rootInfo, GithubData githubData, Set<String> files, InputConfig config) throws IOException, RepositoryException {
+	private boolean createGithubPage(String rootPath, String githubFilePath, BranchRootInfo rootInfo, GithubData githubData, Set<String> files,
+			InputConfig config, Set<String> allFiles) throws IOException, RepositoryException {
 		boolean success;
 		githubFilePath = IONodeUtils.removeFirstSlash(githubFilePath);
 		String internalFilePath = rootInfo.getInternalPath(githubFilePath);
@@ -329,7 +331,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		List<String> imagesList = new ArrayList<String>();
 		String fileBlobUrl = githubLinkService.getFileBlobUrl(githubData, githubFilePath);
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(filePath + "/" + GithubConstants.IMAGES, githubData,
-				rootInfo, filePath, fileBlobUrl);
+				rootInfo, filePath, fileBlobUrl, allFiles, githubFilePath);
 		MarkdownPageData pageData = new MarkdownPageData(config.getPageResourceType(), config.getPageTemplate(), config.getTemplateMapper(), config.getDesignPath());
 		pageData = markdownParserService.parseMarkdownFile(reader, pageData, imagesList, urlPrefixer);
 		pageData.setGithubUrl(fileBlobUrl);
@@ -343,8 +345,8 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 	}
 
 	private GithubHostedImagePrefixer createUrlPrefixer(String urlPrefix, GithubData githubData, 
-			BranchRootInfo rootInfo, String pagePath, String fileBlobUrl)  {
-		return new GithubHostedImagePrefixer(urlPrefix, githubData, rootInfo, pagePath, fileBlobUrl);
+			BranchRootInfo rootInfo, String pagePath, String fileBlobUrl, Set<String> allFiles, String originalFilePath)  {
+		return new GithubHostedImagePrefixer(urlPrefix, githubData, rootInfo, pagePath, fileBlobUrl, allFiles, originalFilePath);
 	}
 
 	private InputStreamReader saveMarkdownFile(String pagePath, String url) throws IOException {

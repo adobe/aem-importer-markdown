@@ -52,7 +52,7 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 			String content = IOUtils.toString(file);
 	        com.vladsch.flexmark.ast.Node document = parser.parse(content);
 	        collectImages(document, urls);
-	        System.out.println(renderer.render(document));
+//	        System.out.println(renderer.render(document));
 	        convertDocumentToComponents(document, pageData, renderer, parser);
 	        return pageData;
 		} catch (Exception e) {
