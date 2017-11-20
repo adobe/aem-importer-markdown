@@ -46,7 +46,7 @@ You will end up with a file called `target/importer-with-dependencies.jar`.
 Run the application using `java -jar` and pass in a configuration file:
 
 ```bash
-$ java -jar java -jar target/importer-jar-with-dependencies.jar markdown2AEM.yml
+$ java -jar target/importer-jar-with-dependencies.jar markdown2AEM.yml
 ```
 
 This will create a file `importerDemo.zip`, which you can install in your AEM instance using the package manager or curl command.
