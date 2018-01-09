@@ -8,13 +8,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>io.adobe.udp</groupId>
-  <artifactId>markdown-importer</artifactId>
+  <groupId>com.adobe.aem</groupId>
+  <artifactId>aem-importer-markdown</artifactId>
   <version>0.0.5</version>
   <packaging>jar</packaging>
 
-  <name>markdown-importer</name>
-  <url>http://maven.apache.org</url>
+  <name>AEM Importer for Markdown</name>
+  <url>https://github.com/adobe/aem-importer-markdown</url>
   
   <repositories>
       <repository>
