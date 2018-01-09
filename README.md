@@ -1,5 +1,7 @@
 # AEM Importer for Markdown
 
+[![CircleCI](https://circleci.com/gh/adobe/aem-importer-markdown.svg?style=svg)](https://circleci.com/gh/adobe/aem-importer-markdown)
+
 Imports Markdown documents into AEM, creating an AEM content package on the go.
 
 ## Why would you want this?
