@@ -39,6 +39,12 @@ To use the application, check out this source code, then build with Maven:
 $ mvn clean package
 ```
 
+If you are using Adobe's default `settings.xml` and you are outside of Adobe's VPN, it is a good idea to disable the default profile:
+
+```bash
+$ mvn clean package -P \!artifactory-corp
+```
+
 You will end up with a file called `target/importer-with-dependencies.jar`.
 
 ### Creating an AEM Content Package
