@@ -1,4 +1,4 @@
-# Standalone Markdown Importer for AEM
+# AEM Importer for Markdown
 
 Imports Markdown documents into AEM, creating an AEM content package on the go.
 
