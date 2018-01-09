@@ -13,6 +13,10 @@
 	<version>0.0.6-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>AEM Importer for Markdown</name>
+	<organization>
+        <name>Adobe</name>
+        <url>https://www.adobe.com</url>
+    </organization>
 	<url>https://github.com/adobe/aem-importer-markdown</url>
 	<repositories>
 		<repository>
