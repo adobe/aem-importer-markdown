@@ -47,7 +47,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - run:
-        name: Publish Snapshot
-        command: |
-          echo "<settings><servers><server><id>ossrh</id><username>$USERNAME</username><password>$PASSWORD</password></server></servers></settings>" > ./m2/settings.xml
-          mvn deploy
+          name: Publish Snapshot
+          command: |
+            echo "<settings><servers><server><id>ossrh</id><username>$USERNAME</username><password>$PASSWORD</password></server></servers></settings>" > ./m2/settings.xml
+            mvn deploy
