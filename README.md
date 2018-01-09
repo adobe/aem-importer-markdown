@@ -4,7 +4,7 @@ Imports Markdown documents into AEM, creating an AEM content package on the go.
 
 ## Why would you want this?
 
-If you have a bunch of Markdown files, for instance [API documentation generated from Swagger](https://git.corp.adobe.com/trieloff/markdownified-swagger), or technical documentation that you want to publish on an AEM-powered web site, for instance [Adobe I/O](https://www.adobe.io). Your Markdown files are not hosted on Github.com, so you cannot use the built-in Markdown importer in Adobe I/O, but with this program you can include the Markdown to AEM conversion into your Continuous Integration process.
+If you have a bunch of Markdown files, for instance [API documentation generated from JSON Schema](https://github.com/adobe/xdm/tree/master/docs/reference), or technical documentation that you want to publish on an AEM-powered web site, for instance [Adobe I/O](https://www.adobe.io). Your Markdown files are not hosted on Github.com, so you cannot use the built-in Markdown importer in Adobe I/O, but with this program you can include the Markdown to AEM conversion into your Continuous Integration process.
 
 ## Prerequisites
 
