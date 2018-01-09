@@ -51,3 +51,7 @@ jobs:
           command: |
             echo "<settings><servers><server><id>ossrh</id><username>$USERNAME</username><password>$PASSWORD</password></server></servers></settings>" > ~/.m2/settings.xml
             mvn deploy
+          filters:
+            branches:
+              only: master
+
