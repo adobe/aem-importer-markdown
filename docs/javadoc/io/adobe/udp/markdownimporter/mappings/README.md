@@ -10,13 +10,13 @@
 | --- |
 | [FrontMatterMapper](FrontMatterMapper.md) |
 | [MarkdownFencedCodeBlockMapper](MarkdownFencedCodeBlockMapper.md) |
+| [IndentedCodeBlockMapper](IndentedCodeBlockMapper.md) |
+| [MarkdownTableMapper](MarkdownTableMapper.md) |
+| [ParagraphsMergingMapper](ParagraphsMergingMapper.md) |
+| [MarkdownNodeMapper](MarkdownNodeMapper.md) |
+| [MarkdownParagraphMapper](MarkdownParagraphMapper.md) |
 | [MarkdownHeadlineMapper](MarkdownHeadlineMapper.md) |
 | [MarkdownMappings](MarkdownMappings.md) |
-| [IndentedCodeBlockMapper](IndentedCodeBlockMapper.md) |
-| [ParagraphsMergingMapper](ParagraphsMergingMapper.md) |
-| [MarkdownParagraphMapper](MarkdownParagraphMapper.md) |
-| [MarkdownNodeMapper](MarkdownNodeMapper.md) |
-| [MarkdownTableMapper](MarkdownTableMapper.md) |
 
 ---
 
