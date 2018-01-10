@@ -10,17 +10,17 @@
 | Name |
 | --- |
 | [MarkdownImporter](MarkdownImporter.md) |
-| [GithubMarkdownImporter](GithubMarkdownImporter.md) |
-| [InputConfig](InputConfig.md) |
 | [Importer](Importer.md) |
-| [PageData](PageData.md) |
-| [MarkdownPageData](MarkdownPageData.md) |
+| [InputConfig](InputConfig.md) |
 | [RootPageData](RootPageData.md) |
-| [TemplateMapping](TemplateMapping.md) |
-| [GithubData](GithubData.md) |
-| [BranchRootInfo](BranchRootInfo.md) |
-| [FolderPageData](FolderPageData.md) |
+| [MarkdownPageData](MarkdownPageData.md) |
 | [TemplateMapper](TemplateMapper.md) |
+| [GithubData](GithubData.md) |
+| [GithubMarkdownImporter](GithubMarkdownImporter.md) |
+| [FolderPageData](FolderPageData.md) |
+| [BranchRootInfo](BranchRootInfo.md) |
+| [TemplateMapping](TemplateMapping.md) |
+| [PageData](PageData.md) |
 | [WorkdirMarkdownImporter](WorkdirMarkdownImporter.md) |
 
 ---

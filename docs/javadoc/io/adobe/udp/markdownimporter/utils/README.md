@@ -3,10 +3,10 @@
 ##Classes
 | Name |
 | --- |
-| [GithubRequests](GithubRequests.md) |
-| [Constants](Constants.md) |
 | [GithubConstants](GithubConstants.md) |
 | [IONodeUtils](IONodeUtils.md) |
+| [GithubRequests](GithubRequests.md) |
+| [Constants](Constants.md) |
 
 ---
 
