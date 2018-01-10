@@ -4,13 +4,11 @@
   you may not use this file except in compliance with the License. You may obtain a copy
   of the License at http://www.apache.org/licenses/LICENSE-2.0
 -->
-<project 
-	xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.aem</groupId>
 	<artifactId>aem-importer-markdown</artifactId>
-	<version>0.0.10-SNAPSHOT</version>
+	<version>0.0.10</version>
 	<packaging>jar</packaging>
 	<name>AEM Importer for Markdown</name>
 	<description>Take a directory of Markdown files and turn them into a content package for Adobe Experience Manager that contains one page for every Markdown file, with proper components for every paragraph in the Markdown</description>
@@ -59,7 +57,8 @@
 	<scm>
 		<developerConnection>scm:git:git@github.com:adobe/aem-importer-markdown.git</developerConnection>
 		<connection>scm:git:https://github.com/adobe/aem-importer-markdown.git</connection>
-	</scm>
+	  <tag>aem-importer-markdown-0.0.10</tag>
+  </scm>
 	<build>
 		<finalName>importer</finalName>
 		<plugins>
