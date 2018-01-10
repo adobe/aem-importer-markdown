@@ -4,7 +4,9 @@
   you may not use this file except in compliance with the License. You may obtain a copy
   of the License at http://www.apache.org/licenses/LICENSE-2.0
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.aem</groupId>
 	<artifactId>aem-importer-markdown</artifactId>
@@ -43,6 +45,23 @@
 	<build>
 		<finalName>importer</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<doclet>fr.faylixe.marklet.Marklet</doclet>
+					<docletArtifact>
+						<groupId>fr.faylixe</groupId>
+						<artifactId>marklet</artifactId>
+						<version>1.0.5</version>
+					</docletArtifact>
+					<reportOutputDirectory>./docs/</reportOutputDirectory>
+					<destDir>.</destDir>
+					<additionalparam>-d javadoc/</additionalparam>
+					<useStandardDocletOptions>false</useStandardDocletOptions>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
