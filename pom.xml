@@ -4,7 +4,9 @@
   you may not use this file except in compliance with the License. You may obtain a copy
   of the License at http://www.apache.org/licenses/LICENSE-2.0
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.aem</groupId>
 	<artifactId>aem-importer-markdown</artifactId>
@@ -38,8 +40,8 @@
 	</properties>
 	<scm>
 		<developerConnection>scm:git:git@github.com:adobe/aem-importer-markdown.git</developerConnection>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 	<build>
 		<finalName>importer</finalName>
 		<plugins>
@@ -104,32 +106,6 @@
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
@@ -232,4 +208,37 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.2.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>2.9.1</version>
+					<executions>
+						<execution>
+							<id>attach-javadocs</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</build>
+		</profile>
+	</profiles>
 </project>
