@@ -9,19 +9,19 @@
 ##Classes
 | Name |
 | --- |
-| [MarkdownImporter](MarkdownImporter.md) |
-| [Importer](Importer.md) |
-| [InputConfig](InputConfig.md) |
-| [RootPageData](RootPageData.md) |
-| [MarkdownPageData](MarkdownPageData.md) |
-| [TemplateMapper](TemplateMapper.md) |
-| [GithubData](GithubData.md) |
 | [GithubMarkdownImporter](GithubMarkdownImporter.md) |
-| [FolderPageData](FolderPageData.md) |
+| [Importer](Importer.md) |
 | [BranchRootInfo](BranchRootInfo.md) |
 | [TemplateMapping](TemplateMapping.md) |
-| [PageData](PageData.md) |
+| [RootPageData](RootPageData.md) |
+| [MarkdownImporter](MarkdownImporter.md) |
 | [WorkdirMarkdownImporter](WorkdirMarkdownImporter.md) |
+| [MarkdownPageData](MarkdownPageData.md) |
+| [TemplateMapper](TemplateMapper.md) |
+| [PageData](PageData.md) |
+| [GithubData](GithubData.md) |
+| [InputConfig](InputConfig.md) |
+| [FolderPageData](FolderPageData.md) |
 
 ---
 
