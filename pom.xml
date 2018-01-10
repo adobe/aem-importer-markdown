@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.adobe.aem</groupId>
 	<artifactId>aem-importer-markdown</artifactId>
-	<version>0.0.9</version>
+	<version>0.0.10-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>AEM Importer for Markdown</name>
 	<organization>
