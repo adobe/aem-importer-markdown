@@ -3,25 +3,25 @@
 ##Interfaces
 | Name |
 | --- |
-| [MarkdownImporter](MarkdownImporter.md) |
 | [PageData](PageData.md) |
+| [MarkdownImporter](MarkdownImporter.md) |
 
 ##Classes
 | Name |
 | --- |
-| [TemplateMapping](TemplateMapping.md) |
-| [MarkdownImporter](MarkdownImporter.md) |
-| [BranchRootInfo](BranchRootInfo.md) |
-| [RootPageData](RootPageData.md) |
-| [InputConfig](InputConfig.md) |
-| [Importer](Importer.md) |
 | [PageData](PageData.md) |
-| [TemplateMapper](TemplateMapper.md) |
-| [WorkdirMarkdownImporter](WorkdirMarkdownImporter.md) |
 | [GithubData](GithubData.md) |
-| [FolderPageData](FolderPageData.md) |
-| [GithubMarkdownImporter](GithubMarkdownImporter.md) |
+| [RootPageData](RootPageData.md) |
+| [TemplateMapping](TemplateMapping.md) |
 | [MarkdownPageData](MarkdownPageData.md) |
+| [InputConfig](InputConfig.md) |
+| [TemplateMapper](TemplateMapper.md) |
+| [BranchRootInfo](BranchRootInfo.md) |
+| [WorkdirMarkdownImporter](WorkdirMarkdownImporter.md) |
+| [GithubMarkdownImporter](GithubMarkdownImporter.md) |
+| [FolderPageData](FolderPageData.md) |
+| [MarkdownImporter](MarkdownImporter.md) |
+| [Importer](Importer.md) |
 
 ---
 

@@ -8,13 +8,13 @@
 ##Classes
 | Name |
 | --- |
-| [UrlPrefixer](UrlPrefixer.md) |
-| [UdpUrlExtension](UdpUrlExtension.md) |
-| [GithubHostedImagePrefixer](GithubHostedImagePrefixer.md) |
-| [ImageVisitor](ImageVisitor.md) |
-| [ImageUrlExtension](ImageUrlExtension.md) |
-| [LinkRenderer](LinkRenderer.md) |
 | [ImageRenderer](ImageRenderer.md) |
+| [UrlPrefixer](UrlPrefixer.md) |
+| [ImageUrlExtension](ImageUrlExtension.md) |
+| [UdpUrlExtension](UdpUrlExtension.md) |
+| [LinkRenderer](LinkRenderer.md) |
+| [ImageVisitor](ImageVisitor.md) |
+| [GithubHostedImagePrefixer](GithubHostedImagePrefixer.md) |
 
 ---
 

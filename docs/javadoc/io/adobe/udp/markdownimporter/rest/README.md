@@ -3,8 +3,8 @@
 ##Classes
 | Name |
 | --- |
-| [RestClientResponse](RestClientResponse.md) |
 | [RestClient](RestClient.md) |
+| [RestClientResponse](RestClientResponse.md) |
 
 ---
 
