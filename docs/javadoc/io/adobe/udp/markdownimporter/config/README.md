@@ -8,8 +8,8 @@
 ##Classes
 | Name |
 | --- |
-| [GithubConfigProvider](GithubConfigProvider.md) |
 | [GithubConfigProviderImpl](GithubConfigProviderImpl.md) |
+| [GithubConfigProvider](GithubConfigProvider.md) |
 
 ---
 
