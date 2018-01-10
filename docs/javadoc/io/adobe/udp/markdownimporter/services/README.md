@@ -10,9 +10,9 @@
 ##Classes
 | Name |
 | --- |
-| [GithubLinkServiceImpl](GithubLinkServiceImpl.md) |
 | [FileSystemPathServiceImpl](FileSystemPathServiceImpl.md) |
 | [GithubLinkService](GithubLinkService.md) |
+| [GithubLinkServiceImpl](GithubLinkServiceImpl.md) |
 | [MarkdownParserService](MarkdownParserService.md) |
 | [FileSystemPathService](FileSystemPathService.md) |
 | [MarkdownParserServiceImpl](MarkdownParserServiceImpl.md) |
