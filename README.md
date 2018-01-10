@@ -133,78 +133,39 @@ This application is work in progress and we are happy about any contribution. Yo
 - file an issue against the APM project in jira.adobe.com
 - just say hi in the `#www_adobe_io` channel on Slack (Enterprise Grid)
 
-### Setting up to Deploy
+### Releasing
 
-This project is configured to deploy to [Adobe Artifactory](https://artifactory.corp.adobe.com/artifactory/webapp/#/artifacts/browse/tree/General/maven-markdown-tools-snapshot/io/adobe/udp/markdown-importer). In order to deploy yourself, you need to update your `settings.xml` with following snippets:
+This project is configured to deploy to [Maven Central](https://repo1.maven.org/maven2/) via [Sonatype OSS](https://oss.sonatype.org/content/groups/public/com/adobe/aem/aem-importer-markdown/). 
+If you want to release yourself, first create an account in the [Sonatype JIRA](https://issues.sonatype.org) and open a new issue, requesting access to the group `com.adobe.aem`. 
+Please reference `trieloff` and `adobe-bot` in your request, so that we can confirm your permission.
+
+In the next step, edit your `~/.m2/settings.xml` to include a new `<server>` section:
 
 ```xml
+<settings>
   <servers>
     <server>
-      <username><!-- replace with your LDAP user name --></username>
-      <password><!-- replace with your API key from Artifactory --></password>
-      <id>central</id>
-    </server>
-    <server>
-      <username><!-- replace with your LDAP user name --></username>
-      <password><!-- replace with your API key from Artifactory --></password>
-      <id>snapshots</id>
+      <id>ossrh</id>
+      <username><!-- your Sonatype username --></username>
+      <password><!-- your Sonatype password --></password>
     </server>
   </servers>
-```
-
-and
-
-```xml
-    <profile>
-      <repositories>
-        <repository>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <id>central</id>
-          <name>maven-markdown-tools-release</name>
-          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-release</url>
-        </repository>
-        <repository>
-          <snapshots />
-          <id>snapshots</id>
-          <name>maven-markdown-tools-snapshot</name>
-          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-snapshot</url>
-        </repository>
-      </repositories>
-      <pluginRepositories>
-        <pluginRepository>
-          <snapshots>
-            <enabled>false</enabled>
-          </snapshots>
-          <id>central</id>
-          <name>maven-markdown-tools-release</name>
-          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-release</url>
-        </pluginRepository>
-        <pluginRepository>
-          <snapshots />
-          <id>snapshots</id>
-          <name>maven-markdown-tools-snapshot</name>
-          <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-snapshot</url>
-        </pluginRepository>
-      </pluginRepositories>
-      <id>artifactory-markdown</id>
-    </profile>
-```
-
-and
-
-```xml
-    <activeProfiles>
-        <activeProfile>artifactory-markdown</activeProfile>
-    </activeProfiles>
+</settings>
 ```
 
 ### Deploying a Build
 
+To deploy a build, use the pre-configured Maven Release Plugin with following commands:
+
 ```bash
-$ mvn deploy
+$ mvn release:clean release:prepare
+$ mvn release:perform
 ```
+
+Releases can only be performed when you
+
+* have commit permissions on this repository
+* have access to the Sonatype group
 
 ## License/Copyright
 
