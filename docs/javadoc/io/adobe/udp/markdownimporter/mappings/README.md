@@ -8,15 +8,15 @@
 ##Classes
 | Name |
 | --- |
-| [MarkdownFencedCodeBlockMapper](MarkdownFencedCodeBlockMapper.md) |
-| [MarkdownHeadlineMapper](MarkdownHeadlineMapper.md) |
-| [IndentedCodeBlockMapper](IndentedCodeBlockMapper.md) |
-| [MarkdownNodeMapper](MarkdownNodeMapper.md) |
 | [FrontMatterMapper](FrontMatterMapper.md) |
 | [ParagraphsMergingMapper](ParagraphsMergingMapper.md) |
 | [MarkdownParagraphMapper](MarkdownParagraphMapper.md) |
 | [MarkdownMappings](MarkdownMappings.md) |
+| [IndentedCodeBlockMapper](IndentedCodeBlockMapper.md) |
+| [MarkdownHeadlineMapper](MarkdownHeadlineMapper.md) |
 | [MarkdownTableMapper](MarkdownTableMapper.md) |
+| [MarkdownFencedCodeBlockMapper](MarkdownFencedCodeBlockMapper.md) |
+| [MarkdownNodeMapper](MarkdownNodeMapper.md) |
 
 ---
 

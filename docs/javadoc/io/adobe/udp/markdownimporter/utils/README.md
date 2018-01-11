@@ -4,8 +4,8 @@
 | Name |
 | --- |
 | [GithubConstants](GithubConstants.md) |
-| [GithubRequests](GithubRequests.md) |
 | [Constants](Constants.md) |
+| [GithubRequests](GithubRequests.md) |
 | [IONodeUtils](IONodeUtils.md) |
 
 ---
