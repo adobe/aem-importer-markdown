@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for choosing to contribute to the Markdown AEM Importer.
+Thanks for choosing to contribute to the AEM Importer for Markdown.
 
 The following are a set of guidelines to follow when contributing to this project.
 
