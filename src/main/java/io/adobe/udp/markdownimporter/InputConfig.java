@@ -13,11 +13,14 @@ import java.util.Map.Entry;
 
 public class InputConfig {
 	
+	private static final int DEFAULT_RETRIES_NUMBER = 1;
+	
 	private String githubUrl;
 	private String githubContentUrl;
 	private String githubApiUrl;
 	private String apiToken;
 	private int commitTime;
+	private int retries;
 	private boolean privateRepository;
 	
 	private String repositoryUrl;
@@ -176,6 +179,15 @@ public class InputConfig {
 	}
 	public void setTemplateMappings(Map<String, String> templateMappings) {
 		this.templateMappings = templateMappings;
+	}
+	public int getRetries() {
+		if(this.retries > 0) {
+			return retries;
+		}
+		return DEFAULT_RETRIES_NUMBER;
+	}
+	public void setRetries(int retries) {
+		this.retries = retries;
 	}
 	public TemplateMapper getTemplateMapper() {
 		if(templateMapper == null) {

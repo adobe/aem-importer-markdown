@@ -27,8 +27,8 @@ public class GithubRequests {
 	
 //	private static final Logger logger = LoggerFactory.getLogger(GithubRequests.class);
 
-	public static String getDefaultBranch(String url, String token) {
-		JSONObject json = (JSONObject) execute(url, token, null);
+	public static String getDefaultBranch(String url, String token, int retries) {
+		JSONObject json = (JSONObject) execute(url, token, null, retries);
 		if(json != null) {
 			try {
 				return json.getString(GithubConstants.DEFAULT_BRANCH);
@@ -39,8 +39,8 @@ public class GithubRequests {
 		return null;
 	}
 	
-	public static String getFileUrl(String url, String token) throws MalformedURLException {
-		JSONObject json = (JSONObject) execute(url, token, null);
+	public static String getFileUrl(String url, String token, int retries) throws MalformedURLException {
+		JSONObject json = (JSONObject) execute(url, token, null, retries);
 		if(json != null) {
 			try {
 				return json.getString(GithubConstants.FILE_DOWNLOAD_URL);
@@ -52,10 +52,10 @@ public class GithubRequests {
 	} 
 	
 	
-	public static Map<String, String> getShaMapping(String url, List<String> branches, String token ) {
+	public static Map<String, String> getShaMapping(String url, List<String> branches, String token, int retries) {
 		Map<String, String> branchSha = new HashMap<String, String>();
 		try {
-			JSONArray json = (JSONArray)   execute(url, token, null);
+			JSONArray json = (JSONArray)   execute(url, token, null, retries);
 			for(int i = 0; i < json.length(); i++) {
 				JSONObject branch = json.getJSONObject(i);
 				String branchName = branch.getString(GithubConstants.NAME);
@@ -71,8 +71,8 @@ public class GithubRequests {
 		return branchSha;
 	}
 	
-	public static String getBranchSha(String url, String token) {
-		JSONObject json = (JSONObject)  execute(url, token, null);
+	public static String getBranchSha(String url, String token, int retries) {
+		JSONObject json = (JSONObject)  execute(url, token, null, retries);
 		if(json != null) {
 			try {
 				return ((JSONObject) json.get(GithubConstants.OBJECT)).get(GithubConstants.SHA).toString();
@@ -83,21 +83,21 @@ public class GithubRequests {
 		return null;
 	}
 	
-	public static JSONObject executeDiffRequest(String url, String token) {
-		return (JSONObject) execute(url, token, null);
+	public static JSONObject executeDiffRequest(String url, String token, int retries) {
+		return (JSONObject) execute(url, token, null, retries);
 	}
 	
-	public static JSONObject executeTreeRequest(String url, String token, boolean recursive) {
+	public static JSONObject executeTreeRequest(String url, String token, boolean recursive, int retries) {
 		if(recursive) {
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("recursive", "1");
-			return (JSONObject)  execute(url, token, params);
+			return (JSONObject)  execute(url, token, params, retries);
 		}
-		return (JSONObject)  execute(url, token, null);
+		return (JSONObject)  execute(url, token, null, retries);
 	}
 	
-	public static Date getCommitTimestamp(String url, String token) {
-		JSONObject json = (JSONObject)  execute(url, token, null);
+	public static Date getCommitTimestamp(String url, String token, int retries) {
+		JSONObject json = (JSONObject)  execute(url, token, null, retries);
 		try {
 			JSONObject author = (JSONObject) ((JSONObject) json.get(GithubConstants.COMMIT)).get(GithubConstants.AUTHOR);
 			String time = author.getString(GithubConstants.DATE).replaceAll("Z$", "+0000");
@@ -109,12 +109,14 @@ public class GithubRequests {
 		return null;
 	}
 	
-	private static Object execute(String url, String token, Map<String, String> params) {
+	private static Object execute(String url, String token, Map<String, String> params, int retries) {
 		RestClient restClient = params == null ? new RestClient(url) : new RestClient(url, params);
 		if(StringUtils.isNotBlank(token)) {
 			restClient.addHeader("Authorization", "token " + token);
 		}
 		RestClientResponse response;
+		int tries = 0;
+		while(tries < retries)
 		try {
 			response = restClient.doGet();
 			System.out.println("Connected to: " + url + "status: " + response.getStatus());
@@ -125,6 +127,7 @@ public class GithubRequests {
 			}
 		} catch (IOException | JSONException e) {
 			System.out.println(e.getMessage());
+			tries++;
 		}
 		return null;
 	}

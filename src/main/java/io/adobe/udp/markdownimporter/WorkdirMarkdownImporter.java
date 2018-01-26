@@ -151,7 +151,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 				return githubData.getGithubUrl() + path;
 			} else {
 				String imagePath = getImagePath(filePath) + path;
-				return githubLinkService.mapPathToUrl(imagePath, githubData);
+				return githubLinkService.mapPathToUrl(imagePath, githubData, config);
 			}
 	}
 	
