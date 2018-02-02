@@ -27,6 +27,7 @@ import org.apache.commons.io.IOUtils;
 import com.vladsch.flexmark.ast.Heading;
 import com.vladsch.flexmark.ast.util.HeadingCollectingVisitor;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
+import com.vladsch.flexmark.ext.attributes.AttributesExtension;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.front.matter.YamlFrontMatterBlock;
 import com.vladsch.flexmark.ext.front.matter.YamlFrontMatterExtension;
@@ -47,7 +48,7 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 			new HashMap<String, String>();
 			 MutableDataHolder options = new MutableDataSet();
 	        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), ImageUrlExtension.create(), YamlFrontMatterExtension.create(),
-	        	StrikethroughExtension.create(), AutolinkExtension.create(), UdpUrlExtension.create(), AnchorLinkExtension.create()));
+	        	StrikethroughExtension.create(), AutolinkExtension.create(), UdpUrlExtension.create(), AnchorLinkExtension.create(), AttributesExtension.create()));
 	        options.set(ImageUrlExtension.URL_CHANGER, urlPrefixer);
 	        options.set(TablesExtension.COLUMN_SPANS, false)
 	        .set(TablesExtension.APPEND_MISSING_COLUMNS, true)

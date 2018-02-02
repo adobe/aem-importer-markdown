@@ -18,6 +18,8 @@ import javax.jcr.RepositoryException;
 import org.apache.jackrabbit.JcrConstants;
 
 import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.ext.attributes.AttributeNode;
+import com.vladsch.flexmark.ext.attributes.AttributesNode;
 import com.vladsch.flexmark.html.HtmlRenderer;
 import com.vladsch.flexmark.parser.Parser;
 
@@ -37,9 +39,15 @@ public class ParagraphsMergingMapper implements MarkdownNodeMapper {
 			Parser parser, HtmlRenderer renderer) throws RepositoryException {
 		StringBuilder paragraphHtml = new StringBuilder();
 		while(markdownNode != null && isParagraphNode(markdownNode)) {
-			String elementHtml = renderer.render(parser.parse(markdownNode.getChars()));
-			paragraphHtml.append(elementHtml);
-			markdownNode = markdownNode.getNext();
+			if(hasAttributes(markdownNode)) {
+				String elementHtml = renderer.render(parser.parse(markdownNode.getChars() + "\n" + markdownNode.getNext().getChars() ));
+				paragraphHtml.append(elementHtml);
+				markdownNode = markdownNode.getNext().getNext();
+			} else {
+				String elementHtml = renderer.render(parser.parse(markdownNode.getChars()));
+				paragraphHtml.append(elementHtml);
+				markdownNode = markdownNode.getNext();
+			}
 		}
 		HashMap<String, String> component = new HashMap<String, String>();
 		component.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
@@ -54,6 +62,13 @@ public class ParagraphsMergingMapper implements MarkdownNodeMapper {
 		return !MarkdownMappings.hasMapping(markdownNode);
 	}
 
-	
+	private boolean hasAttributes(Node node) {
+		Node attributes = node.getNext();
+		if(attributes != null && isParagraphNode(attributes) && 
+			(attributes.getFirstChild() instanceof AttributeNode || attributes.getFirstChild() instanceof AttributesNode)) {
+			return true;
+		}
+		return false;
+	}
 
 }
