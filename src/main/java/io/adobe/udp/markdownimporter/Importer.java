@@ -13,6 +13,7 @@ import io.adobe.udp.markdownimporter.services.GithubLinkService;
 import io.adobe.udp.markdownimporter.services.GithubLinkServiceImpl;
 import io.adobe.udp.markdownimporter.services.MarkdownParserService;
 import io.adobe.udp.markdownimporter.services.MarkdownParserServiceImpl;
+import io.adobe.udp.markdownimporter.utils.IONodeUtils;
 import io.wcm.tooling.commons.contentpackagebuilder.ContentPackage;
 import io.wcm.tooling.commons.contentpackagebuilder.ContentPackageBuilder;
 
@@ -90,7 +91,7 @@ public class Importer
 	private static Map<String, Map<String, Object>> toContent(Map<String, PageData> pages) {
 		Map<String, Map<String, Object>> content = new TreeMap<String, Map<String, Object>>();
 		for(Map.Entry<String, PageData> entry : pages.entrySet()) {
-			content.put(entry.getKey(), entry.getValue().toContent());
+			content.put(IONodeUtils.escapePath(entry.getKey()), entry.getValue().toContent());
 		}
 		return content;
 	}

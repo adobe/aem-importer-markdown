@@ -37,8 +37,6 @@ import org.apache.sling.commons.json.JSONObject;
 
 public class GithubMarkdownImporter implements MarkdownImporter {
 
-	private static final String PAGES_PROPERTY = "pages";
-
 	private MarkdownParserService markdownParserService;
 	
 	private GithubLinkService githubLinkService;	
@@ -104,7 +102,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 				hasPages);
 		String readmeFileUrl;
 		if(hasPages) {
-			readmeFileUrl = githubLinkService.mapPathToUrl(rootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION, githubData, config);			
+			readmeFileUrl = githubLinkService.mapPathToUrl(IONodeUtils.escapeUrlWhitespaces(rootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION), githubData, config);			
 		} else {
 			String getReadmeApiUrl = githubLinkService.getReadmeUrl(githubData);
 			readmeFileUrl = GithubRequests.getFileUrl(getReadmeApiUrl, githubData.getToken(), config.getRetries());
@@ -329,7 +327,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		internalFilePath = IONodeUtils.removeFirstSlash(internalFilePath);
 		String parentPath = IONodeUtils.replaceDotsInPath(rootPath + "/" + internalFilePath.substring(0, internalFilePath.lastIndexOf("/") + 1));
 		String pageName = IONodeUtils.replaceDotsInPath(internalFilePath.substring(internalFilePath.lastIndexOf("/") + 1));
-		String url = githubLinkService.mapPathToUrl(githubFilePath, githubData, config);
+		String url = githubLinkService.mapPathToUrl(IONodeUtils.escapeUrlWhitespaces(githubFilePath), githubData, config);
 		String filePath = parentPath + IONodeUtils.trimName(pageName);
 		InputStreamReader reader = saveMarkdownFile(filePath, addCacheKiller(url), config.getRetries());
 		FolderPageData folderPageData = new FolderPageData(config.getPageResourceType(), config.getPageTemplate(), config.getDesignPath());
