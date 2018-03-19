@@ -82,7 +82,7 @@ public class Importer
     			contentPackage.addPage(entry.getKey(), entry.getValue());
     		}
     		for(Map.Entry<String, File> entry : images.entrySet()) {
-    			contentPackage.addFile(entry.getKey(), entry.getValue(), "image/gif");
+    			contentPackage.addFile(entry.getKey(), entry.getValue(), "application/octet-stream");
     		}
     	}
 

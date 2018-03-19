@@ -7,6 +7,7 @@
 package io.adobe.udp.markdownimporter.services;
 
 import io.adobe.udp.markdownimporter.MarkdownPageData;
+import io.adobe.udp.markdownimporter.flexmarkExtensions.AssetCollector;
 import io.adobe.udp.markdownimporter.flexmarkExtensions.GithubHostedImagePrefixer;
 import io.adobe.udp.markdownimporter.flexmarkExtensions.ImageUrlExtension;
 import io.adobe.udp.markdownimporter.flexmarkExtensions.ImageVisitor;
@@ -58,7 +59,7 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 			HtmlRenderer renderer = HtmlRenderer.builder(options).build();
 			String content = IOUtils.toString(file);
 	        com.vladsch.flexmark.ast.Node document = parser.parse(content);
-	        collectImages(document, urls);
+	        collectImagesAndAssets(document, urls);
 //	        System.out.println(renderer.render(document));
 	        convertDocumentToComponents(document, pageData, renderer, parser);
 	        return pageData;
@@ -69,9 +70,11 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 		
 	}
 		
-	private void collectImages(com.vladsch.flexmark.ast.Node document, List<String> urls) {
+	private void collectImagesAndAssets(com.vladsch.flexmark.ast.Node document, List<String> urls) {
 		ImageVisitor visitor = new ImageVisitor(urls);
+		AssetCollector collector = new AssetCollector(urls);
         visitor.collectImages(document);
+        collector.collectAssets(document);
 	}
 
 	private void convertDocumentToComponents(
