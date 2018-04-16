@@ -47,7 +47,7 @@ public class GithubConstants {
 	public static final String AUTHOR = "author";
 	public static final String CONTENTS = "/contents";
 	public static final String AUTOPUBLISH = "autopublish";
-	public static final String IMAGES = "images/";
+	public static final String IMAGES = "jcr:content/images/";
 	public static final String IMPORT_FAILED = "failed";
 	public static final String BRANCH_FILE = "branchFile";
 	public static final String COMMON_PREFIX = "commonPrefix";

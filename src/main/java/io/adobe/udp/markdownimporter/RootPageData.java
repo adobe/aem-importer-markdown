@@ -13,6 +13,7 @@ import java.util.Map;
 
 import org.apache.sling.jcr.resource.JcrResourceConstants;
 
+import com.day.cq.commons.jcr.JcrConstants;
 import com.day.cq.wcm.api.NameConstants;
 
 public class RootPageData implements PageData {
@@ -30,6 +31,7 @@ public class RootPageData implements PageData {
 		result.put(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, inputConfig.getRootPageResourceType());
 		result.put(NameConstants.PN_DESIGN_PATH, inputConfig.getDesignPath());
 		result.put(NameConstants.PN_TEMPLATE, inputConfig.getRootTemplate());
+		result.put(JcrConstants.JCR_TITLE, inputConfig.getRootTitle());
 		result.put("imported", true);
 		result.put("isFolder", true);
 		result.put("isDocumentationRoot", "true");
