@@ -120,7 +120,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 			pageData.setTitle(IONodeUtils.extractName(branchPage));
 		}
         this.pages.put(branchPage, pageData);
-		collectImages(branchPage, githubData, imagesList,"", images, config);
+		collectImages(branchPage, githubData, imagesList, rootInfo.getRootPath(), images, config);
 //		setImported(branchPage, githubData, rootInfo.getRootGithubFile());
 
 //		return success;

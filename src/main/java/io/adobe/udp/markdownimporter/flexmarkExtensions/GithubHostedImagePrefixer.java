@@ -98,7 +98,11 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 	}
 	
 	private String getParentPage(String page) {
-		return page.substring(0, page.lastIndexOf("/"));
+		if(page.lastIndexOf("/") > 0) {
+			return page.substring(0, page.lastIndexOf("/"));
+		}
+		return "";
+		
 	}
 	private String fileGithubUrl(String path) {
 		if(isAbsolute(path)) {

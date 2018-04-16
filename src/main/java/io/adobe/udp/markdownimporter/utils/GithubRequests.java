@@ -12,6 +12,8 @@ import io.adobe.udp.markdownimporter.rest.RestClientResponse;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -110,7 +112,8 @@ public class GithubRequests {
 	}
 	
 	private static Object execute(String url, String token, Map<String, String> params, int retries) {
-		RestClient restClient = params == null ? new RestClient(url) : new RestClient(url, params);
+		String normalizedUrl = normalize(url);
+		RestClient restClient = params == null ? new RestClient(normalizedUrl) : new RestClient(normalizedUrl, params);
 		if(StringUtils.isNotBlank(token)) {
 			restClient.addHeader("Authorization", "token " + token);
 		}
@@ -119,7 +122,7 @@ public class GithubRequests {
 		while(tries < retries)
 		try {
 			response = restClient.doGet();
-			System.out.println("Connected to: " + url + "status: " + response.getStatus());
+			System.out.println("Connected to: " + normalizedUrl + "status: " + response.getStatus());
 			if(response.getJson().trim().startsWith("{")) {
 				return new JSONObject(response.getJson());
 			} else {
@@ -130,5 +133,16 @@ public class GithubRequests {
 			tries++;
 		}
 		return null;
+	}
+	
+	private static String normalize(String path) {
+		URI uri;
+		try {
+			uri = new URI(path);
+		} catch (URISyntaxException e) {
+			System.out.println(e.getMessage());
+			return path;
+		}
+		return uri.normalize().toString();
 	}
 }
