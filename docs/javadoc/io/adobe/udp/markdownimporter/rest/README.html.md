@@ -3,8 +3,8 @@
 ## Classes
 | Name | Description |
 | --- | --- |
-| [RestClient](RestClient.html) | Rest Client Utility Class |
 | [RestClientResponse](RestClientResponse.html) |  |
+| [RestClient](RestClient.html) | Rest Client Utility Class |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)

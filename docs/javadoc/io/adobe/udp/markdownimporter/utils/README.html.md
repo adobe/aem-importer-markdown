@@ -3,10 +3,10 @@
 ## Classes
 | Name | Description |
 | --- | --- |
-| [GithubRequests](GithubRequests.html) |  |
-| [IONodeUtils](IONodeUtils.html) |  |
-| [Constants](Constants.html) |  |
 | [GithubConstants](GithubConstants.html) |  |
+| [Constants](Constants.html) |  |
+| [IONodeUtils](IONodeUtils.html) |  |
+| [GithubRequests](GithubRequests.html) |  |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)
