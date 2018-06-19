@@ -8,8 +8,8 @@
 ## Classes
 | Name | Description |
 | --- | --- |
-| [GithubConfigProviderImpl](GithubConfigProviderImpl.html) |  |
 | [GithubConfigProvider](GithubConfigProvider.html) |  |
+| [GithubConfigProviderImpl](GithubConfigProviderImpl.html) |  |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)

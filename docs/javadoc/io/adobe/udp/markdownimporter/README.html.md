@@ -9,19 +9,19 @@
 ## Classes
 | Name | Description |
 | --- | --- |
-| [GithubMarkdownImporter](GithubMarkdownImporter.html) |  |
-| [RootPageData](RootPageData.html) |  |
-| [MarkdownImporter](MarkdownImporter.html) |  |
-| [TemplateMapper](TemplateMapper.html) |  |
-| [GithubData](GithubData.html) |  |
-| [WorkdirMarkdownImporter](WorkdirMarkdownImporter.html) |  |
-| [TemplateMapping](TemplateMapping.html) |  |
-| [BranchRootInfo](BranchRootInfo.html) |  |
 | [InputConfig](InputConfig.html) |  |
+| [MarkdownImporter](MarkdownImporter.html) |  |
+| [WorkdirMarkdownImporter](WorkdirMarkdownImporter.html) |  |
+| [GithubMarkdownImporter](GithubMarkdownImporter.html) |  |
 | [MarkdownPageData](MarkdownPageData.html) |  |
-| [Importer](Importer.html) |  |
 | [PageData](PageData.html) |  |
+| [GithubData](GithubData.html) |  |
 | [FolderPageData](FolderPageData.html) |  |
+| [Importer](Importer.html) |  |
+| [TemplateMapping](TemplateMapping.html) |  |
+| [RootPageData](RootPageData.html) |  |
+| [BranchRootInfo](BranchRootInfo.html) |  |
+| [TemplateMapper](TemplateMapper.html) |  |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)

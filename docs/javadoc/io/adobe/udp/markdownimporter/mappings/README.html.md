@@ -9,14 +9,14 @@
 | Name | Description |
 | --- | --- |
 | [MarkdownNodeMapper](MarkdownNodeMapper.html) |  |
-| [IndentedCodeBlockMapper](IndentedCodeBlockMapper.html) |  |
+| [FrontMatterMapper](FrontMatterMapper.html) |  |
+| [MarkdownMappings](MarkdownMappings.html) |  |
+| [MarkdownTableMapper](MarkdownTableMapper.html) |  |
+| [MarkdownParagraphMapper](MarkdownParagraphMapper.html) |  |
 | [MarkdownHeadlineMapper](MarkdownHeadlineMapper.html) |  |
+| [IndentedCodeBlockMapper](IndentedCodeBlockMapper.html) |  |
 | [ParagraphsMergingMapper](ParagraphsMergingMapper.html) |  |
 | [MarkdownFencedCodeBlockMapper](MarkdownFencedCodeBlockMapper.html) |  |
-| [MarkdownTableMapper](MarkdownTableMapper.html) |  |
-| [MarkdownMappings](MarkdownMappings.html) |  |
-| [FrontMatterMapper](FrontMatterMapper.html) |  |
-| [MarkdownParagraphMapper](MarkdownParagraphMapper.html) |  |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)
