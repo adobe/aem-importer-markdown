@@ -9,19 +9,19 @@
 ## Classes
 | Name | Description |
 | --- | --- |
-| [InputConfig](InputConfig.html) |  |
-| [MarkdownImporter](MarkdownImporter.html) |  |
-| [WorkdirMarkdownImporter](WorkdirMarkdownImporter.html) |  |
 | [GithubMarkdownImporter](GithubMarkdownImporter.html) |  |
 | [MarkdownPageData](MarkdownPageData.html) |  |
-| [PageData](PageData.html) |  |
+| [RootPageData](RootPageData.html) |  |
+| [TemplateMapper](TemplateMapper.html) |  |
 | [GithubData](GithubData.html) |  |
 | [FolderPageData](FolderPageData.html) |  |
-| [Importer](Importer.html) |  |
-| [TemplateMapping](TemplateMapping.html) |  |
-| [RootPageData](RootPageData.html) |  |
+| [InputConfig](InputConfig.html) |  |
+| [WorkdirMarkdownImporter](WorkdirMarkdownImporter.html) |  |
+| [MarkdownImporter](MarkdownImporter.html) |  |
 | [BranchRootInfo](BranchRootInfo.html) |  |
-| [TemplateMapper](TemplateMapper.html) |  |
+| [PageData](PageData.html) |  |
+| [TemplateMapping](TemplateMapping.html) |  |
+| [Importer](Importer.html) |  |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)

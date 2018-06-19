@@ -8,15 +8,15 @@
 ## Classes
 | Name | Description |
 | --- | --- |
-| [MarkdownNodeMapper](MarkdownNodeMapper.html) |  |
 | [FrontMatterMapper](FrontMatterMapper.html) |  |
-| [MarkdownMappings](MarkdownMappings.html) |  |
-| [MarkdownTableMapper](MarkdownTableMapper.html) |  |
+| [MarkdownNodeMapper](MarkdownNodeMapper.html) |  |
 | [MarkdownParagraphMapper](MarkdownParagraphMapper.html) |  |
-| [MarkdownHeadlineMapper](MarkdownHeadlineMapper.html) |  |
+| [MarkdownFencedCodeBlockMapper](MarkdownFencedCodeBlockMapper.html) |  |
+| [MarkdownTableMapper](MarkdownTableMapper.html) |  |
 | [IndentedCodeBlockMapper](IndentedCodeBlockMapper.html) |  |
 | [ParagraphsMergingMapper](ParagraphsMergingMapper.html) |  |
-| [MarkdownFencedCodeBlockMapper](MarkdownFencedCodeBlockMapper.html) |  |
+| [MarkdownMappings](MarkdownMappings.html) |  |
+| [MarkdownHeadlineMapper](MarkdownHeadlineMapper.html) |  |
 
 
 [![Marklet](https://img.shields.io/badge/Generated%20by-Marklet-green.svg)](https://github.com/Faylixe/marklet)
