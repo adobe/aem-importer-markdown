@@ -20,7 +20,7 @@ templateMappings:
 githubUrl : github.com
 githubContentUrl : https://raw.githubusercontent.com
 githubApiUrl : api.github.com
-apiToken : a91a1b0c6faee11d6dc284af838f2369cec64214
+apiToken : ${tokenPlaceholder}
 commitTime : 1
 repositoryUrl : https://github.com/iotester/importerTest
 privateRepository : false
