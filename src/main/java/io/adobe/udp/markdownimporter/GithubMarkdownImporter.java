@@ -37,8 +37,6 @@ import org.apache.sling.commons.json.JSONObject;
 
 public class GithubMarkdownImporter implements MarkdownImporter {
 
-	private static final String PAGES_PROPERTY = "pages";
-
 	private MarkdownParserService markdownParserService;
 	
 	private GithubLinkService githubLinkService;	
@@ -82,7 +80,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 					BranchRootInfo branchRootInfo = BranchRootInfo.createBranchRootInfo(config.getRootPath(), configPages, githubData.getRepositoryBranch(),
 							allFiles, first, hasPages);
 					String branchPath = IONodeUtils.getBranchPageName(config.getRootPath(), branchRootInfo.getBranchPageName() + "_" + githubData.getRepositoryBranch());
-					Set<String> files = getFiles(branchPath, configPages, githubData, configPages, branchRootInfo, githubLinkService);
+					Set<String> files = getFiles(branchPath, configPages, githubData, configPages, branchRootInfo, githubLinkService, config);
 					branchSuccess = createBranchPage(config.getRootPath(), githubData, branchRootInfo, hasPages, githubLinkService, config, allFiles);
 					files.remove(branchRootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION);
 					pageSuccess = saveGithubPages(branchPath, files,  githubData,  branchRootInfo, config, allFiles);
@@ -104,12 +102,12 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 				hasPages);
 		String readmeFileUrl;
 		if(hasPages) {
-			readmeFileUrl = githubLinkService.mapPathToUrl(rootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION, githubData);			
+			readmeFileUrl = githubLinkService.mapPathToUrl(IONodeUtils.escapeUrlWhitespaces(rootInfo.getRootPath() + GithubConstants.MARKDOWN_EXTENSION), githubData, config);			
 		} else {
 			String getReadmeApiUrl = githubLinkService.getReadmeUrl(githubData);
-			readmeFileUrl = GithubRequests.getFileUrl(getReadmeApiUrl, githubData.getToken());
+			readmeFileUrl = GithubRequests.getFileUrl(getReadmeApiUrl, githubData.getToken(), config.getRetries());
 		}
-		InputStreamReader reader = saveMarkdownFile(branchPage, addCacheKiller(readmeFileUrl));
+		InputStreamReader reader = saveMarkdownFile(branchPage, addCacheKiller(readmeFileUrl), config.getRetries());
 		List<String> imagesList = new ArrayList<String>();
 		String pageUrl = githubLinkService.getFileBlobUrl(githubData, rootInfo.getRootPath());
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(branchPage + "/" + GithubConstants.IMAGES, githubData,
@@ -122,7 +120,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 			pageData.setTitle(IONodeUtils.extractName(branchPage));
 		}
         this.pages.put(branchPage, pageData);
-		collectImages(branchPage, githubData, imagesList,"", images);
+		collectImages(branchPage, githubData, imagesList, rootInfo.getRootPath(), images, config);
 //		setImported(branchPage, githubData, rootInfo.getRootGithubFile());
 
 //		return success;
@@ -131,14 +129,14 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 	}
 //
 	private void collectImages(String rootPage, GithubData githubData,
-			List<String> images, String filePath, Map<String, File> imagesMap) throws RepositoryException, IOException {
+			List<String> images, String filePath, Map<String, File> imagesMap,InputConfig config) throws RepositoryException, IOException {
 		Map<String, String> pathToUrl = new HashMap<String, String>();
 		if(images != null && images.size() > 0) {
 			new File(rootPage + "/images").mkdirs();
 		}
 		for(String path : images) {
 			String rawPath = IONodeUtils.removeParams(path);
-			pathToUrl.put(GithubConstants.IMAGES + rawPath, getImageUrl(rawPath, githubData, filePath));
+			pathToUrl.put(GithubConstants.IMAGES + rawPath, getImageUrl(rawPath, githubData, filePath, config));
 		}
 		for(Map.Entry<String, String> pathEntry : pathToUrl.entrySet()) {
 			saveImage(rootPage, pathEntry.getKey(), pathEntry.getValue(), imagesMap);
@@ -146,12 +144,12 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		
 	}
 
-	private String getImageUrl(String path, GithubData githubData, String filePath) throws MalformedURLException, RepositoryException {
+	private String getImageUrl(String path, GithubData githubData, String filePath, InputConfig config) throws MalformedURLException, RepositoryException {
 			if(path.startsWith("/")) {
 				return githubData.getGithubUrl() + path;
 			} else {
 				String imagePath = getImagePath(filePath) + path;
-				return githubLinkService.mapPathToUrl(imagePath, githubData);
+				return githubLinkService.mapPathToUrl(imagePath, githubData, config);
 			}
 	}
 	
@@ -200,11 +198,11 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		}
 	
 	private Set<String> getFiles(String branchPath, List<String> paths, GithubData githubData, List<String> configPages, 
-			BranchRootInfo rootInfo, GithubLinkService githubLinkService) throws MalformedURLException{
+			BranchRootInfo rootInfo, GithubLinkService githubLinkService, InputConfig config) throws MalformedURLException{
 		Set<String> filesToImport = new TreeSet<String>();
 			for(String startPath : paths) {
 				if(startPath.contains("*")) {
-					addGlobbedPaths(filesToImport, githubLinkService.getPathInRepository(startPath.replaceAll("\\*", ""), githubData), githubData, githubLinkService);
+					addGlobbedPaths(filesToImport, githubLinkService.getPathInRepository(startPath.replaceAll("\\*", ""), githubData), githubData, githubLinkService, config);
 				} else {
 					filesToImport.add(githubLinkService.getPathInRepository(startPath, githubData));
 				}
@@ -217,7 +215,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		if(!config.isLocalCheckout()) {
 			for(String startPath : paths) {
 				if(startPath.contains("*")) {
-					addGlobbedPaths(files, githubLinkService.getPathInRepository(startPath.replaceAll("\\*", ""), githubData), githubData, githubLinkService);
+					addGlobbedPaths(files, githubLinkService.getPathInRepository(startPath.replaceAll("\\*", ""), githubData), githubData, githubLinkService, config);
 				} else {
 					files.add(githubLinkService.getPathInRepository(startPath, githubData));
 				}
@@ -225,7 +223,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		} else {
 			for(String startPath : paths) {
 				if(startPath.contains("*")) {
-					addGlobbedPaths(files, githubLinkService.getPathInRepository(startPath.replaceAll("\\*", ""), githubData), githubData, githubLinkService);
+					addGlobbedPaths(files, githubLinkService.getPathInRepository(startPath.replaceAll("\\*", ""), githubData), githubData, githubLinkService, config);
 				} else {
 					files.add(githubLinkService.getPathInRepository(startPath, githubData));
 				}
@@ -235,11 +233,11 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 	}
 
 	private void addGlobbedPaths(Set<String> filesToImport, String startPath,
-			GithubData githubData, GithubLinkService githubLinkService) {
+			GithubData githubData, GithubLinkService githubLinkService, InputConfig config) {
 		try {
 			String gitTreeRequest = githubLinkService.getGithubTreeUrl(startPath, githubData);
-			JSONObject treeResponse = GithubRequests.executeTreeRequest(gitTreeRequest, githubData.getToken(), true);
-			collectPagesFromTree(treeResponse, githubData, filesToImport, IONodeUtils.stripFromExtension(startPath));
+			JSONObject treeResponse = GithubRequests.executeTreeRequest(gitTreeRequest, githubData.getToken(), true, config.getRetries());
+			collectPagesFromTree(treeResponse, githubData, filesToImport, IONodeUtils.stripFromExtension(startPath), config);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -247,7 +245,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 	}
 
 	private void collectPagesFromTree(JSONObject treeResponse,
-			GithubData githubData, Set<String> filesToImport, String startPath) {
+			GithubData githubData, Set<String> filesToImport, String startPath, InputConfig config) {
 		try {
 			if(treeResponse.getBoolean("truncated")) {
 				JSONArray tree = treeResponse.getJSONArray("tree");
@@ -257,8 +255,8 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 					if(isEligibleToIterate(entry)) {
 						String url = entry.getString(GithubConstants.URL);
 						String path = startPath + "/" + entry.getString("path");
-						JSONObject jsonResponse = GithubRequests.executeTreeRequest(url, githubData.getToken(), true);
-						collectPagesFromTree(jsonResponse, githubData, filesToImport, path);
+						JSONObject jsonResponse = GithubRequests.executeTreeRequest(url, githubData.getToken(), true, config.getRetries());
+						collectPagesFromTree(jsonResponse, githubData, filesToImport, path, config);
 					}
 				}	
 			} else {
@@ -329,9 +327,9 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		internalFilePath = IONodeUtils.removeFirstSlash(internalFilePath);
 		String parentPath = IONodeUtils.replaceDotsInPath(rootPath + "/" + internalFilePath.substring(0, internalFilePath.lastIndexOf("/") + 1));
 		String pageName = IONodeUtils.replaceDotsInPath(internalFilePath.substring(internalFilePath.lastIndexOf("/") + 1));
-		String url = githubLinkService.mapPathToUrl(githubFilePath, githubData);
+		String url = githubLinkService.mapPathToUrl(IONodeUtils.escapeUrlWhitespaces(githubFilePath), githubData, config);
 		String filePath = parentPath + IONodeUtils.trimName(pageName);
-		InputStreamReader reader = saveMarkdownFile(filePath, addCacheKiller(url));
+		InputStreamReader reader = saveMarkdownFile(filePath, addCacheKiller(url), config.getRetries());
 		FolderPageData folderPageData = new FolderPageData(config.getPageResourceType(), config.getPageTemplate(), config.getDesignPath());
 		IONodeUtils.addPlaceHolderTemplate(rootPath, filePath, githubFilePath, files, pages, config);
 		List<String> imagesList = new ArrayList<String>();
@@ -344,7 +342,7 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		if(StringUtils.isBlank(pageData.getTitle())) {
 			pageData.setTitle(IONodeUtils.removeMDExtensionFromPath(pageName));
 		}
-		collectImages(filePath, githubData, imagesList, githubFilePath, this.images);
+		collectImages(filePath, githubData, imagesList, githubFilePath, this.images, config);
 		this.pages.put(filePath, pageData);
 //		setImported(filePath, githubData, githubFilePath);
 		return true;
@@ -355,11 +353,18 @@ public class GithubMarkdownImporter implements MarkdownImporter {
 		return new GithubHostedImagePrefixer(urlPrefix, githubData, rootInfo, pagePath, fileBlobUrl, allFiles, originalFilePath);
 	}
 
-	private InputStreamReader saveMarkdownFile(String pagePath, String url) throws IOException {
-		URL file = new URL(url);
-//		File markdownFile = new File(pagePath + "/_jcr_content/markdown");
-//		FileUtils.copyURLToFile(file, markdownFile);
-		return new InputStreamReader(file.openStream());
+	private InputStreamReader saveMarkdownFile(String pagePath, String url, int retries) throws IOException {
+		int tries = 0;
+		while(tries < retries) { 
+			try {
+				URL file = new URL(url);
+				return new InputStreamReader(file.openStream());
+			} catch (IOException e) {
+				System.out.println("Connection error, trying to reconnect");
+				tries++;
+			}
+		}
+		return null;
 	}
 
 	private String addCacheKiller(String url) {

@@ -31,7 +31,7 @@ public class BranchRootInfo {
 		this.documentationRootPath = documentationRootPath;
 		this.rootGithubFile = rooPath;
 		this.rootPath = io.adobe.udp.markdownimporter.utils.IONodeUtils.stripFromExtension(rooPath);
-		this.commonPrefix = commonPrefix;
+		this.commonPrefix = StringUtils.equals(commonPrefix, "/") ? "" : commonPrefix;
 		this.first = first;
 		this.branchPageName = extractName();
 		this.branch = branch;

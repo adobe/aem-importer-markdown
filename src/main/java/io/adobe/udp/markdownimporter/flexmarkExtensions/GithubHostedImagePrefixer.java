@@ -13,6 +13,7 @@ import io.adobe.udp.markdownimporter.utils.GithubConstants;
 import io.adobe.udp.markdownimporter.utils.IONodeUtils;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
@@ -40,8 +41,8 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 
 	@Override
 	public String prefix(String path) {
-		if(!path.startsWith(Constants.HTTP_PREFIX) && !path.startsWith(Constants.HTTPS_PREFIX) && !path.startsWith("#")) {
-			if(StringUtils.isNotBlank(path) && path.endsWith(GithubConstants.MARKDOWN_EXTENSION)) {
+		if(!path.startsWith(Constants.HTTP_PREFIX) && !path.startsWith(Constants.HTTPS_PREFIX) && !path.startsWith("#") && !path.startsWith("mailto:")) {
+			if(StringUtils.isNotBlank(path) && (path.endsWith(GithubConstants.MARKDOWN_EXTENSION) || path.contains("#") || path.endsWith(".html"))) {
 				return rewritePathToMarkdown(path);
 			}
 			return urlPrefix + IONodeUtils.removeFirstSlash(path);
@@ -50,16 +51,22 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 	}
 
 	private String rewritePathToMarkdown(String path) {
+		String anchor = StringUtils.EMPTY;
+		if(path.contains("#")) {
+			anchor = path.substring(path.indexOf("#"));
+		}
+		path = removeAnchorAndParams(path);
 		String originalLinkPath = getOriginalLinkPath(path);
 		String internalPath = originalLinkPath;
 		if(StringUtils.isNotBlank(githubData.getBlobPrefix())) {
 			internalPath = path.replaceFirst(githubData.getBlobPrefix(), "");
 		}
 		internalPath = IONodeUtils.removeFirstSlash(branchRootInfo.getInternalPath(internalPath));
-		if(allFiles.contains(originalLinkPath)) {
-			return IONodeUtils.replaceDotsInPath(aemFilePath(internalPath)) + ".html";
+		if(allFiles.contains(originalLinkPath) || allFiles.contains("/" + originalLinkPath)) {
+			internalPath = normalize(internalPath);
+			return IONodeUtils.escapeUrlWhitespaces(IONodeUtils.replaceDotsInPath(aemFilePath(internalPath))) + ".html" + anchor;
 		}
-		return fileGithubUrl(path);
+		return IONodeUtils.escapeUrlWhitespaces(fileGithubUrl(path)) + anchor;
 		
 	}
 
@@ -91,7 +98,11 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 	}
 	
 	private String getParentPage(String page) {
-		return page.substring(0, page.lastIndexOf("/"));
+		if(page.lastIndexOf("/") > 0) {
+			return page.substring(0, page.lastIndexOf("/"));
+		}
+		return "";
+		
 	}
 	private String fileGithubUrl(String path) {
 		if(isAbsolute(path)) {
@@ -101,7 +112,7 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 		if(path.startsWith("./")) {
 			return githubPageUrl + "/." +  path;
 		} else {
-			return githubPageUrl + "/" + path;
+			return getParentPage(githubPageUrl) + "/" + path;
 		}
 	}
 
@@ -109,4 +120,25 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 		return path.startsWith("/");
 	}
 
+	private String removeAnchorAndParams(String path) {
+		if(path.contains("?")) {
+			return path.substring(0, path.indexOf("?"));
+		}
+		if(path.contains("#")) {
+			return path.substring(0, path.indexOf("#"));
+		}
+		return path;
+	}
+	
+	private String normalize(String path) {
+		URI uri;
+		try {
+			uri = new URI(path);
+		} catch (URISyntaxException e) {
+			System.out.println(e.getMessage());
+			return path;
+		}
+		return uri.normalize().getPath();
+	}
+	
 }

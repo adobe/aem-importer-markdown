@@ -26,7 +26,7 @@ public interface GithubLinkService {
 	
 	String getContentUrl(String repositoryUrl, String ref);
 	
-	String mapPathToUrl(String path, GithubData githubData) throws MalformedURLException;
+	String mapPathToUrl(String path, GithubData githubData, InputConfig config) throws MalformedURLException;
 	
 	String getGithubTreeUrl(String path, GithubData githubData) throws MalformedURLException;
 	

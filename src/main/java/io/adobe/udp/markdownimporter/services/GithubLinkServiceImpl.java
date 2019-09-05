@@ -84,7 +84,7 @@ public class GithubLinkServiceImpl implements GithubLinkService {
 		return null;
 	}
 
-	public String mapPathToUrl(String path, GithubData githubData) throws MalformedURLException {
+	public String mapPathToUrl(String path, GithubData githubData, InputConfig config) throws MalformedURLException {
 		Joiner joiner = Joiner.on("/").skipNulls();
 		if(!githubData.isCorp()) {
 			if(!path.startsWith(Constants.HTTP_PREFIX) && !path.startsWith(Constants.HTTPS_PREFIX)) {
@@ -99,7 +99,7 @@ public class GithubLinkServiceImpl implements GithubLinkService {
 			String contentsUrl = Constants.HTTPS_PREFIX + githubData.getApiUrl() + GithubConstants.REPOS + "/" +
 					githubData.getRepositoryOwner() + "/" + githubData.getReposiotryName() + GithubConstants.CONTENTS + 
 					"/" + path + "?ref=" + githubData.getRepositoryBranch();
-			return GithubRequests.getFileUrl(contentsUrl, githubData.getToken());
+			return GithubRequests.getFileUrl(contentsUrl, githubData.getToken(), config.getRetries());
 		}
 	}
 

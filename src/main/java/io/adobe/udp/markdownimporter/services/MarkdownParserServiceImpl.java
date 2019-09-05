@@ -7,6 +7,7 @@
 package io.adobe.udp.markdownimporter.services;
 
 import io.adobe.udp.markdownimporter.MarkdownPageData;
+import io.adobe.udp.markdownimporter.flexmarkExtensions.AssetCollector;
 import io.adobe.udp.markdownimporter.flexmarkExtensions.GithubHostedImagePrefixer;
 import io.adobe.udp.markdownimporter.flexmarkExtensions.ImageUrlExtension;
 import io.adobe.udp.markdownimporter.flexmarkExtensions.ImageVisitor;
@@ -27,6 +28,7 @@ import org.apache.commons.io.IOUtils;
 import com.vladsch.flexmark.ast.Heading;
 import com.vladsch.flexmark.ast.util.HeadingCollectingVisitor;
 import com.vladsch.flexmark.ext.anchorlink.AnchorLinkExtension;
+import com.vladsch.flexmark.ext.attributes.AttributesExtension;
 import com.vladsch.flexmark.ext.autolink.AutolinkExtension;
 import com.vladsch.flexmark.ext.front.matter.YamlFrontMatterBlock;
 import com.vladsch.flexmark.ext.front.matter.YamlFrontMatterExtension;
@@ -47,7 +49,7 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 			new HashMap<String, String>();
 			 MutableDataHolder options = new MutableDataSet();
 	        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), ImageUrlExtension.create(), YamlFrontMatterExtension.create(),
-	        	StrikethroughExtension.create(), AutolinkExtension.create(), UdpUrlExtension.create(), AnchorLinkExtension.create()));
+	        	StrikethroughExtension.create(), AutolinkExtension.create(), UdpUrlExtension.create(), AnchorLinkExtension.create(), AttributesExtension.create()));
 	        options.set(ImageUrlExtension.URL_CHANGER, urlPrefixer);
 	        options.set(TablesExtension.COLUMN_SPANS, false)
 	        .set(TablesExtension.APPEND_MISSING_COLUMNS, true)
@@ -57,7 +59,7 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 			HtmlRenderer renderer = HtmlRenderer.builder(options).build();
 			String content = IOUtils.toString(file);
 	        com.vladsch.flexmark.ast.Node document = parser.parse(content);
-	        collectImages(document, urls);
+	        collectImagesAndAssets(document, urls);
 //	        System.out.println(renderer.render(document));
 	        convertDocumentToComponents(document, pageData, renderer, parser);
 	        return pageData;
@@ -68,9 +70,11 @@ public class MarkdownParserServiceImpl implements MarkdownParserService {
 		
 	}
 		
-	private void collectImages(com.vladsch.flexmark.ast.Node document, List<String> urls) {
+	private void collectImagesAndAssets(com.vladsch.flexmark.ast.Node document, List<String> urls) {
 		ImageVisitor visitor = new ImageVisitor(urls);
+		AssetCollector collector = new AssetCollector(urls);
         visitor.collectImages(document);
+        collector.collectAssets(document);
 	}
 
 	private void convertDocumentToComponents(

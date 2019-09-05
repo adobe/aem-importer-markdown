@@ -4,107 +4,43 @@
   you may not use this file except in compliance with the License. You may obtain a copy
   of the License at http://www.apache.org/licenses/LICENSE-2.0
 -->
-<project 
-	xmlns="http://maven.apache.org/POM/4.0.0" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.adobe.aem</groupId>
-	<artifactId>aem-importer-markdown</artifactId>
-	<version>0.0.12-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<name>AEM Importer for Markdown</name>
-	<description>Take a directory of Markdown files and turn them into a content package for Adobe Experience Manager that contains one page for every Markdown file, with proper components for every paragraph in the Markdown</description>
-	<licenses>
-		<license>
-			<name>Apache License, Version 2.0</name>
-			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<id>trieloff</id>
-			<name>Lars Trieloff</name>
-			<email>trieloff@adobe.com</email>
-			<url>https://twitter.com/trieloff</url>
-			<organization>Adobe</organization>
-			<organizationUrl>http://www.adobe.com</organizationUrl>
-		</developer>
-	</developers>
-	<organization>
-		<name>Adobe</name>
-		<url>https://www.adobe.com</url>
-	</organization>
-	<url>https://github.com/adobe/aem-importer-markdown</url>
-	<repositories>
-		<repository>
-			<id>central-adobe</id>
-			<name>Adobe Proxy Repository</name>
-			<url>http://repo.adobe.com/nexus/content/groups/public</url>
-			<layout>default</layout>
-		</repository>
-		<repository>
-			<id>central</id>
-			<name>Maven Repository Switchboard</name>
-			<layout>default</layout>
-			<url>http://repo1.maven.org/maven2</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<additionalparam>-Xdoclint:none</additionalparam>
-	</properties>
-	<scm>
-		<developerConnection>scm:git:git@github.com:adobe/aem-importer-markdown.git</developerConnection>
-		<connection>scm:git:https://github.com/adobe/aem-importer-markdown.git</connection>
-		<url>https://github.com/adobe/aem-importer-markdown</url>
-		<tag>HEAD</tag>
-	</scm>
-	<build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.adobe.udp</groupId>
+  <artifactId>markdown-importer</artifactId>
+  <version>0.0.5</version>
+  <packaging>jar</packaging>
+
+  <name>markdown-importer</name>
+  <url>http://maven.apache.org</url>
+  
+  <repositories>
+      <repository>
+           <id>central-adobe</id>
+           <name>Adobe Proxy Repository</name>
+           <url>http://repo.adobe.com/nexus/content/groups/public</url>
+           <layout>default</layout>
+         </repository>
+        <repository>
+		    <id>central</id>
+		    <name>Maven Repository Switchboard</name>
+		    <layout>default</layout>
+		    <url>http://repo1.maven.org/maven2</url>
+		    <snapshots>
+		      <enabled>false</enabled>
+		    </snapshots>
+		  </repository>
+   </repositories>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <build>
 		<finalName>importer</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9</version>
-				<configuration>
-					<doclet>fr.faylixe.marklet.Marklet</doclet>
-					<docletArtifact>
-						<groupId>fr.faylixe</groupId>
-						<artifactId>marklet</artifactId>
-						<version>1.1.0</version>
-					</docletArtifact>
-					<reportOutputDirectory>./docs/</reportOutputDirectory>
-					<destDir>.</destDir>
-					<additionalparam>-d javadoc/</additionalparam>
-					<useStandardDocletOptions>false</useStandardDocletOptions>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -114,6 +50,7 @@
 					<downloadJavadocs>false</downloadJavadocs>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -123,176 +60,133 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!-- ... -->
-					<archive>
-						<manifest>
-							<mainClass>io.adobe.udp.markdownimporter.Importer</mainClass>
-						</manifest>
-					</archive>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
+		<plugin>
+                 <artifactId>maven-assembly-plugin</artifactId>
+                 <executions>
+                     <execution>
+                          <phase>package</phase>
+                          <goals>
+                              <goal>single</goal>
+                          </goals>
+                      </execution>
+                  </executions>
+                  <configuration>
+                       <!-- ... -->
+                       <archive>
+                           <manifest>
+                                 <mainClass>io.adobe.udp.markdownimporter.Importer</mainClass>
+                           </manifest>
+                       </archive>
+                       <descriptorRefs>
+                           <descriptorRef>jar-with-dependencies</descriptorRef>
+                      </descriptorRefs>
+                 </configuration>
+         </plugin>
+			
+			
 		</plugins>
 	</build>
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+	    <groupId>org.yaml</groupId>
+	    <artifactId>snakeyaml</artifactId>
+	    <version>1.18</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.4</version>
+	</dependency>
+	 <dependency>
+         <groupId>com.adobe.aem</groupId>
+         <artifactId>aem-api</artifactId>
+         <version>6.0.0.1</version>
+     </dependency>
+	 <dependency>
+         <groupId>javax.jcr</groupId>
+         <artifactId>jcr</artifactId>
+         <version>2.0</version>
+         <scope>provided</scope>
+     </dependency>
+     <dependency>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>org.yaml</groupId>
-			<artifactId>snakeyaml</artifactId>
-			<version>1.18</version>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-util</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-ext-tables</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>com.adobe.aem</groupId>
-			<artifactId>aem-api</artifactId>
-			<version>6.0.0.1</version>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-ext-yaml-front-matter</artifactId>
+		    <version>0.12.3</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.jcr</groupId>
-			<artifactId>jcr</artifactId>
-			<version>2.0</version>
-			<scope>provided</scope>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-ext-autolink</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark</artifactId>
-			<version>0.12.3</version>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-ext-gfm-strikethrough</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-util</artifactId>
-			<version>0.12.3</version>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-ext-anchorlink</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-ext-tables</artifactId>
-			<version>0.12.3</version>
+		    <groupId>com.vladsch.flexmark</groupId>
+		    <artifactId>flexmark-ext-attributes</artifactId>
+		    <version>0.28.34</version>
 		</dependency>
 		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-ext-yaml-front-matter</artifactId>
-			<version>0.12.3</version>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.8.3</version>
+       </dependency>
+       <dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>19.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.2</version>
+        </dependency>
+        
 		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-ext-autolink</artifactId>
-			<version>0.12.3</version>
+		    <groupId>io.wcm.tooling.commons</groupId>
+		    <artifactId>io.wcm.tooling.commons.content-package-builder</artifactId>
+		    <version>1.3.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-ext-gfm-strikethrough</artifactId>
-			<version>0.12.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.vladsch.flexmark</groupId>
-			<artifactId>flexmark-ext-anchorlink</artifactId>
-			<version>0.12.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.8.3</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>19.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.2</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
-		</dependency>
-		<dependency>
-			<groupId>io.wcm.tooling.commons</groupId>
-			<artifactId>io.wcm.tooling.commons.content-package-builder</artifactId>
-			<version>1.3.0</version>
-		</dependency>
-	</dependencies>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>2.2.1</version>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.9.1</version>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.5</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+  </dependencies>
+  <distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>or1010050152009.corp.adobe.com-releases</name>
+        <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-release</url>
+    </repository>
+	<snapshotRepository>
+        <id>snapshots</id>
+        <name>or1010050152009.corp.adobe.com-snapshots</name>
+        <url>https://artifactory.corp.adobe.com:443/artifactory/maven-markdown-tools-snapshot</url>
+    </snapshotRepository>
+</distributionManagement>
 </project>

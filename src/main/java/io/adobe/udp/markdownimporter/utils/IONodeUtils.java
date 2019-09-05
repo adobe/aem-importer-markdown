@@ -25,6 +25,17 @@ public class IONodeUtils {
 		return path.replace(".", "_");
 	}
 	
+	/**
+	 * replaces illegal sling path characters with underscores (spaces and dots)
+	 * @param path
+	 * @return
+	 */
+	public static String escapePath(String path) {
+		return path.replace(".", "_").replace(" ", "_")
+				.replace("%20", "_")
+				.replace(" ", "_");
+	}
+	
 	public static String trimName(String name) {
 		if(name.startsWith("/")) {
 			return name.substring(1);
@@ -148,5 +159,15 @@ public class IONodeUtils {
 			return StringUtils.removeEnd(path, "_md");
 		}
 		return path;
+	}
+	
+	/**
+	 * replaces whitespaces with %20 for url
+	 */
+	public static String escapeUrlWhitespaces(String path) {
+		if(StringUtils.isBlank(path)) {
+			return path;
+		}
+		return path.replace(" ", "%20");
 	}
 }
