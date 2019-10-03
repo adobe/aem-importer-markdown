@@ -15,8 +15,6 @@ import io.adobe.udp.markdownimporter.PageData;
 import java.util.Map;
 import java.util.Set;
 
-import javax.jcr.Session;
-
 import org.apache.commons.lang3.StringUtils;
 
 public class IONodeUtils {
@@ -57,10 +55,6 @@ public class IONodeUtils {
 		return replaceDotsInPath(trimName(branch).replace("/", "_"));
 	}
 	
-	public static void populatePath(String path, Session session) {
-		
-	}
-	
 	public static void addPlaceHolderTemplate(String rootPath, String filePath, String githubFilePath, Set<String> files, Map<String, PageData> pages, InputConfig config) {
 		String parentPath = getParentPath(filePath);
 		if(!rootPath.equals(filePath) && !rootPath.equals(parentPath)) {
@@ -90,7 +84,7 @@ public class IONodeUtils {
 	}
 
 	public static String stripFromExtension(String path) {
-		String result = new String(path);
+		String result = path;
 		if(path.toLowerCase().endsWith(GithubConstants.MARKDOWN_EXTENSION)) {
 			result = path.substring(0, path.toLowerCase().lastIndexOf(GithubConstants.MARKDOWN_EXTENSION));
 		}

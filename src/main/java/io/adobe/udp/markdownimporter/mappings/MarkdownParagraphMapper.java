@@ -22,7 +22,7 @@ public class MarkdownParagraphMapper implements MarkdownNodeMapper {
 
 	public com.vladsch.flexmark.ast.Node mapToComponen(com.vladsch.flexmark.ast.Node markdownNode,
 			MarkdownPageData pageData, Parser parser, HtmlRenderer renderer) throws RepositoryException {
-		HashMap<String, String> component = new HashMap<String, String>();
+		HashMap<String, String> component = new HashMap<>();
 		String elementHtml = renderer.render(parser.parse(markdownNode.getChars()));
 		component.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
 		component.put("text", elementHtml);

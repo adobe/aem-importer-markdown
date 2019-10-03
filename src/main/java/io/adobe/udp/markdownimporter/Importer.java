@@ -44,7 +44,7 @@ public class Importer
        MarkdownMappings.configure(inputConfig.getComponentMappings());
        MarkdownParserService markdownParserService = new MarkdownParserServiceImpl();
        GithubLinkService githubLinkService = new GithubLinkServiceImpl();
-      MarkdownImporter importer = null;
+      MarkdownImporter importer;
       if(inputConfig.getWorkingDirs() == null) {
     	  importer = new GithubMarkdownImporter(markdownParserService, githubLinkService, inputConfig);
       } else {
@@ -88,7 +88,7 @@ public class Importer
     }
 
 	private static Map<String, Map<String, Object>> toContent(Map<String, PageData> pages) {
-		Map<String, Map<String, Object>> content = new TreeMap<String, Map<String, Object>>();
+		Map<String, Map<String, Object>> content = new TreeMap<>();
 		for(Map.Entry<String, PageData> entry : pages.entrySet()) {
 			content.put(entry.getKey(), entry.getValue().toContent());
 		}

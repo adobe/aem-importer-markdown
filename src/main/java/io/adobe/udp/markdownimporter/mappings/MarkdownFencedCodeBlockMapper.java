@@ -23,7 +23,7 @@ public class MarkdownFencedCodeBlockMapper implements MarkdownNodeMapper {
 
 	public com.vladsch.flexmark.ast.Node mapToComponen(com.vladsch.flexmark.ast.Node markdownNode,
 			MarkdownPageData pageData, Parser parser, HtmlRenderer renderer) throws RepositoryException {
-		HashMap<String, String> component = new HashMap<String, String>();
+		HashMap<String, String> component = new HashMap<>();
 		String elementHtml = renderer.render(parser.parse(markdownNode.getChars()));
 		elementHtml = elementHtml.replaceFirst("<pre><code.*>", "").replace("</code></pre>", "");
 		component.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);

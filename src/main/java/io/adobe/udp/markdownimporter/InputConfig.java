@@ -39,7 +39,7 @@ public class InputConfig {
 	private String version;
 	private boolean localCheckout;
 	
-	private TemplateMapper templateMapper;;
+	private TemplateMapper templateMapper;
 	private TemplateMapping defaultMapping;
 	
 	public String getGithubUrl() {
@@ -179,7 +179,7 @@ public class InputConfig {
 	}
 	public TemplateMapper getTemplateMapper() {
 		if(templateMapper == null) {
-			Map<String, TemplateMapping> mappings = new HashMap<String, TemplateMapping>();
+			Map<String, TemplateMapping> mappings = new HashMap<>();
 			if(this.templateMappings != null) {
 				for(Map.Entry<String, String> mappingEntry : templateMappings.entrySet()) {
 					TemplateMapping mapping = createMapping(mappingEntry);

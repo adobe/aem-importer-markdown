@@ -69,7 +69,7 @@ public class GithubHostedImagePrefixer implements UrlPrefixer {
 	 * @return
 	 */
 	private String getOriginalLinkPath(String path) {
-		URI uri = null;
+		URI uri;
 		try {
 			if(!path.startsWith("/") ) {
 				uri = new URI(getParentPage(originalPath) + "/" + path);

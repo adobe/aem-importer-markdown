@@ -84,7 +84,7 @@ public class BranchRootInfo {
 	}
 	
 	public String getBranchPathFirstElement() {
-		String result = null;
+		String result;
 		if(rootPath.contains("/")) {			
 			result = rootPath.substring(rootPath.lastIndexOf("/") + 1);
 		} else {

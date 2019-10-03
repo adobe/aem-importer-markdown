@@ -30,8 +30,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 public class RestClient {
 //    private static final Logger log = LoggerFactory.getLogger(RestClient.class);
 
-    private CloseableHttpClient httpClient = null;
-    private HttpGet httpGetRequest = null;
+    private CloseableHttpClient httpClient;
+    private HttpGet httpGetRequest;
 
     /**
      * Rest Client constructor

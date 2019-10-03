@@ -53,7 +53,7 @@ public class GithubRequests {
 	
 	
 	public static Map<String, String> getShaMapping(String url, List<String> branches, String token ) {
-		Map<String, String> branchSha = new HashMap<String, String>();
+		Map<String, String> branchSha = new HashMap<>();
 		try {
 			JSONArray json = (JSONArray)   execute(url, token, null);
 			for(int i = 0; i < json.length(); i++) {
@@ -89,7 +89,7 @@ public class GithubRequests {
 	
 	public static JSONObject executeTreeRequest(String url, String token, boolean recursive) {
 		if(recursive) {
-			Map<String, String> params = new HashMap<String, String>();
+			Map<String, String> params = new HashMap<>();
 			params.put("recursive", "1");
 			return (JSONObject)  execute(url, token, params);
 		}

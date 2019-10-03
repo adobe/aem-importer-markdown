@@ -25,8 +25,8 @@ public class RootPageData implements PageData {
 
 	@Override
 	public Map<String, Object> toContent() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		Map<String, Object> githubData = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<>();
+		Map<String, Object> githubData = new HashMap<>();
 		result.put(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, inputConfig.getRootPageResourceType());
 		result.put(NameConstants.PN_DESIGN_PATH, inputConfig.getDesignPath());
 		result.put(NameConstants.PN_TEMPLATE, inputConfig.getRootTemplate());

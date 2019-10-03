@@ -6,12 +6,11 @@
  */
 package io.adobe.udp.markdownimporter.flexmarkExtensions;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
 import com.vladsch.flexmark.ast.Link;
-import com.vladsch.flexmark.html.CustomNodeRenderer;
 import com.vladsch.flexmark.html.HtmlWriter;
 import com.vladsch.flexmark.html.renderer.LinkType;
 import com.vladsch.flexmark.html.renderer.NodeRenderer;
@@ -30,15 +29,10 @@ public class LinkRenderer implements NodeRenderer {
 
 
     public Set<NodeRenderingHandler<?>> getNodeRenderingHandlers() {
-        return new HashSet<>(Arrays.asList(
-	                new NodeRenderingHandler<>(Link.class, new CustomNodeRenderer<Link>() {
-	                    @Override
-	                    public void render(Link node, NodeRendererContext context, HtmlWriter html) {
-	                        LinkRenderer.this.render(node, context, html);
-	                    }
-	                })
-                ));
-    };
+        return new HashSet<>(Collections.singletonList(
+                new NodeRenderingHandler<>(Link.class, LinkRenderer.this::render)
+        ));
+    }
 
     private void render(Link node, NodeRendererContext context, HtmlWriter html) {
         if (context.isDoNotRenderLinks()) {
