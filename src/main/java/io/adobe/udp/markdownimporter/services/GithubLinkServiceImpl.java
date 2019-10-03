@@ -15,10 +15,6 @@ import io.adobe.udp.markdownimporter.utils.IONodeUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Map;
-import java.util.logging.Logger;
-
-import javax.jcr.RepositoryException;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -88,8 +84,8 @@ public class GithubLinkServiceImpl implements GithubLinkService {
 		Joiner joiner = Joiner.on("/").skipNulls();
 		if(!githubData.isCorp()) {
 			if(!path.startsWith(Constants.HTTP_PREFIX) && !path.startsWith(Constants.HTTPS_PREFIX)) {
-				return  joiner.join(githubData.getContentUrl(), githubData.getRepositoryOwner(), githubData.getReposiotryName(),
-						githubData.getRepositoryBranch(), path).toString();
+				return joiner.join(githubData.getContentUrl(), githubData.getRepositoryOwner(), githubData.getReposiotryName(),
+						githubData.getRepositoryBranch(), path);
 			} else {
 				URL url = new URL(path);
 				String urlPath = url.getPath();

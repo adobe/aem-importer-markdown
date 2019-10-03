@@ -23,7 +23,7 @@ public class MarkdownTableMapper implements MarkdownNodeMapper {
 
 	public Node mapToComponen(Node markdownNode, MarkdownPageData pageData, Parser parser, HtmlRenderer renderer) throws RepositoryException {
 		String elementHtml = renderer.render(parser.parse(markdownNode.getChars()));
-		HashMap<String, String> component = new HashMap<String, String>();
+		HashMap<String, String> component = new HashMap<>();
 		component.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
 		component.put("tableDataHTML", elementHtml);
 		component.put(Constants.SLING_RESOURCE_TYPE, "dev/components/table");

@@ -29,7 +29,7 @@ public class FolderPageData implements PageData {
 
 	@Override
 	public Map<String, Object> toContent() {
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<>();
 		result.put(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, resourceType);
 		result.put(NameConstants.PN_DESIGN_PATH, designPath);
 		result.put(NameConstants.PN_TEMPLATE, template);

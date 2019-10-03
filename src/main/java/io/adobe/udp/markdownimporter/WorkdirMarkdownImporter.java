@@ -55,8 +55,8 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		this.markdownParserService = markdownParserService;
 		this.githubLinkService = githubLinkService;
 		this.pathService = pathService; 
-		this.pages = new HashMap<String, PageData>();
-		this.images = new HashMap<String, File>();
+		this.pages = new HashMap<>();
+		this.images = new HashMap<>();
 		this.config = config;
 	}
 	
@@ -110,7 +110,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 			readmeFileLocation = dirPath + "/README.md"; 
 		}
 		InputStreamReader reader = saveMarkdownFile(readmeFileLocation);
-		List<String> imagesList = new ArrayList<String>();
+		List<String> imagesList = new ArrayList<>();
 		String pageUrl = pathService.getFileBlobUrl(config, rootInfo.getRootPath(), dirPath);
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(branchPage + "/" + GithubConstants.IMAGES, githubData,
 				rootInfo, branchPage, pageUrl, allFiles, rootInfo.getRootPath());
@@ -132,7 +132,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 //
 	private void collectImages(String rootPage, GithubData githubData,
 			List<String> images, String filePath, Map<String, File> imagesMap) throws RepositoryException, IOException {
-		Map<String, String> pathToUrl = new HashMap<String, String>();
+		Map<String, String> pathToUrl = new HashMap<>();
 		if(images != null && images.size() > 0) {
 			new File(rootPage + "/images").mkdirs();
 		}
@@ -179,7 +179,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 
 	private String getBranchPagePath(String rootPage,
 			String branch, BranchRootInfo rootInfo, boolean hasPages) {
-		String branchPath = null;
+		String branchPath;
 		if(hasPages) {
 			branchPath =IONodeUtils. getBranchPageName(rootPage, rootInfo.getBranchPageName() + "_" + branch);
 		} else {
@@ -191,7 +191,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 	}
 
 	private List<String> getConfigPages(InputConfig config) {
-		List<String> paths = new ArrayList<String>();
+		List<String> paths = new ArrayList<>();
 		if(config.getPages() != null) {
 			for(String path : config.getPages()) {
 				paths.add(IONodeUtils.removeFirstSlash(path));
@@ -201,7 +201,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		}
 	
 	private Set<String> getAllFiles(List<String> paths, String dirPath, FileSystemPathService pathService) {
-		Set<String> files = new TreeSet<String>();
+		Set<String> files = new TreeSet<>();
 		for(String startPath : paths) {
 			if(startPath.contains("*")) {
 				addGlobbedPaths(files, pathService.getLocalFilePath(startPath.replaceAll("\\*", ""), dirPath), dirPath);
@@ -254,7 +254,7 @@ public class WorkdirMarkdownImporter implements MarkdownImporter  {
 		String filePath = parentPath + IONodeUtils.trimName(pageName);
 		InputStreamReader reader = saveMarkdownFile(pathService.getLocalFilePath(githubFilePath, dirPath));
 		IONodeUtils.addPlaceHolderTemplate(rootPath, filePath, githubFilePath, files, pages, config);
-		List<String> imagesList = new ArrayList<String>();
+		List<String> imagesList = new ArrayList<>();
 		String fileBlobUrl = githubLinkService.getFileBlobUrl(githubData, githubFilePath);
 		fileBlobUrl = StringUtils.isNoneBlank(fileBlobUrl) ? fileBlobUrl : githubFilePath;
 		GithubHostedImagePrefixer urlPrefixer = createUrlPrefixer(filePath + "/" + GithubConstants.IMAGES, githubData,

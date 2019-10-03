@@ -26,7 +26,7 @@ import com.vladsch.flexmark.parser.Parser;
 public class MarkdownHeadlineMapper implements MarkdownNodeMapper {
 
 	public Node mapToComponen(Node markdownNode, MarkdownPageData pageData, Parser parser, HtmlRenderer renderer) throws RepositoryException {
-		HashMap<String, String> component = new HashMap<String, String>();
+		HashMap<String, String> component = new HashMap<>();
 		String content = getHeadlineContent(markdownNode, renderer, parser);
 		component.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
 		component.put("jcr:title", content);
@@ -39,9 +39,9 @@ public class MarkdownHeadlineMapper implements MarkdownNodeMapper {
 
 	private String getHeadlineContent(Node markdownNode, HtmlRenderer renderer, Parser parser) {
 		Node anchor = markdownNode.getFirstChild();
-		if(anchor != null && anchor instanceof AnchorLink) {
+		if(anchor instanceof AnchorLink) {
 			Node link = anchor.getFirstChild();
-			if(link != null && link instanceof Link) {
+			if(link instanceof Link) {
 				String html = renderer.render(parser.parse(link.getChars()));
 				return Jsoup.parse(html).select("a").get(0).outerHtml();
 			}

@@ -10,9 +10,6 @@ import io.adobe.udp.markdownimporter.GithubData;
 import io.adobe.udp.markdownimporter.InputConfig;
 
 import java.net.MalformedURLException;
-import java.util.Map;
-
-import javax.jcr.RepositoryException;
 
 public interface GithubLinkService {
 	

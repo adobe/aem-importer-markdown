@@ -14,7 +14,6 @@ import com.vladsch.flexmark.ast.Image;
 import com.vladsch.flexmark.ast.Node;
 import com.vladsch.flexmark.ast.NodeVisitor;
 import com.vladsch.flexmark.ast.VisitHandler;
-import com.vladsch.flexmark.ast.Visitor;
 
 public class ImageVisitor {
     
@@ -22,12 +21,7 @@ public class ImageVisitor {
 
    
     NodeVisitor visitor = new NodeVisitor(
-            new VisitHandler<Image>(Image.class, new Visitor<Image>() {
-                @Override
-                public void visit(Image image) {
-                    ImageVisitor.this.visit(image);
-                }
-            })
+            new VisitHandler<>(Image.class, ImageVisitor.this::visit)
     );
     
     public ImageVisitor(List<String> urls) {

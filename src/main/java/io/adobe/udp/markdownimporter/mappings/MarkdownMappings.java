@@ -14,7 +14,7 @@ import com.vladsch.flexmark.ast.Node;
 
 public  class MarkdownMappings {
 	
-	public static final Map<Class, MarkdownNodeMapper> markdownMapping = new HashMap<Class, MarkdownNodeMapper>();
+	public static final Map<Class, MarkdownNodeMapper> markdownMapping = new HashMap<>();
 	private static final MarkdownNodeMapper defaultMapper = new ParagraphsMergingMapper();
 	
 	public static void configure(Map<String, String> mappings) {

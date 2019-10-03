@@ -39,9 +39,9 @@ public class MarkdownPageData implements PageData {
 		this.template = template;
 		this.templateMapper = templateMapper;
 		this.designPath = designPath;
-		this.components = new ArrayList<HashMap<String, String>>();
-		this.yamlProperties = new ArrayList<String>();
-		this.images = new HashMap<String, File>();
+		this.components = new ArrayList<>();
+		this.yamlProperties = new ArrayList<>();
+		this.images = new HashMap<>();
 	}	
 	
 	public MarkdownPageData(List<String> yamlProperties, String title, List<HashMap<String, String>> components) {
@@ -93,12 +93,12 @@ public class MarkdownPageData implements PageData {
 	}
 
 	public Map<String, Object> toContent() {
-		Map<String, Object> markdownContent = new TreeMap<String, Object>();
+		Map<String, Object> markdownContent = new TreeMap<>();
 		int i = 10000;
 		for(HashMap<String, String> component : components) {
 			markdownContent.put("element_" + i++ , component);
 		}
-		Map<String, Object> result = new HashMap<String, Object>();
+		Map<String, Object> result = new HashMap<>();
 		result.put("markdownrenderer", markdownContent);
 		result.put(JcrResourceConstants.SLING_RESOURCE_TYPE_PROPERTY, resourceType);
 		result.put(NameConstants.PN_DESIGN_PATH, designPath);

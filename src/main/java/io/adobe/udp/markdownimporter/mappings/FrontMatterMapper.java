@@ -25,7 +25,7 @@ public class FrontMatterMapper implements MarkdownNodeMapper {
 
 	public Node mapToComponen(Node markdownNode, MarkdownPageData pageData,
 			Parser parser, HtmlRenderer renderer) throws RepositoryException {
-		List<String> properties = new ArrayList<String>();
+		List<String> properties = new ArrayList<>();
 		Node entry = markdownNode.getFirstChild();
 		while(entry != null) {
 			YamlFrontMatterNode keyValue = (YamlFrontMatterNode) entry;
@@ -34,7 +34,7 @@ public class FrontMatterMapper implements MarkdownNodeMapper {
 					pageData.setTitle(keyValue.getValues().toArray(new String[1])[0]);
 				}
 				if(keyValue.getKey().equals("template")) {
-					pageData.setTemplateFromYaml(keyValue.getValues().toArray(new String[1])[0]);;
+					pageData.setTemplateFromYaml(keyValue.getValues().toArray(new String[1])[0]);
 				}
 				if(keyValue.getKey().equals(GithubConstants.NAV_ORDER_PROPERTY)) {
 					pageData.setNavOrder(NumberUtils.toLong(keyValue.getValues().toArray(new String[1])[0]));

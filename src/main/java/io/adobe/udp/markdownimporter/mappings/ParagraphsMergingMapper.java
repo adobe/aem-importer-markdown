@@ -41,7 +41,7 @@ public class ParagraphsMergingMapper implements MarkdownNodeMapper {
 			paragraphHtml.append(elementHtml);
 			markdownNode = markdownNode.getNext();
 		}
-		HashMap<String, String> component = new HashMap<String, String>();
+		HashMap<String, String> component = new HashMap<>();
 		component.put(JcrConstants.JCR_PRIMARYTYPE, JcrConstants.NT_UNSTRUCTURED);
 		component.put("text", paragraphHtml.toString());
 		component.put(Constants.SLING_RESOURCE_TYPE, "wcm/foundation/components/text");
