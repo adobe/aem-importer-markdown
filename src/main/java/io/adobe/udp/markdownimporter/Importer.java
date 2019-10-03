@@ -40,7 +40,7 @@ public class Importer
        }
        FileInputStream fis = new FileInputStream(configFile);
        Yaml yaml = new Yaml(new Constructor(InputConfig.class));
-       InputConfig inputConfig = (InputConfig) yaml.load(fis);
+       InputConfig inputConfig = yaml.load(fis);
        MarkdownMappings.configure(inputConfig.getComponentMappings());
        MarkdownParserService markdownParserService = new MarkdownParserServiceImpl();
        GithubLinkService githubLinkService = new GithubLinkServiceImpl();
